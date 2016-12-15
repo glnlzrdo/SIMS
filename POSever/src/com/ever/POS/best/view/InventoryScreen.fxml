@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="549.0" prefWidth="872.0" styleClass="window-pane" stylesheets="@CustomCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ever.POS.best.view.InventoryScreenController">
+   <children>
+      <TextField fx:id="productSearch" layoutX="264.0" layoutY="9.0" onKeyReleased="#handleSearch" prefHeight="33.0" prefWidth="300.0" styleClass="input-field" stylesheets="@CustomCSS.css" />
+      <TableView fx:id="productsTable" layoutX="34.0" layoutY="53.0" prefHeight="477.0" prefWidth="660.0" stylesheets="@CustomCSS.css">
+         <columns>
+            <TableColumn fx:id="productID" editable="false" prefWidth="79.0" text="PRODUCT ID" />
+            <TableColumn fx:id="productName" editable="false" prefWidth="151.0" text="PRODUCT NAME" />
+            <TableColumn fx:id="productUnit" editable="false" minWidth="6.0" prefWidth="58.0" text="UNIT" />
+            <TableColumn fx:id="productDescription" editable="false" prefWidth="179.0" text="DESCRIPTION" />
+            <TableColumn fx:id="purchasePrice" editable="false" prefWidth="68.0" text="P. PRICE" />
+            <TableColumn fx:id="retailPrice" editable="false" prefWidth="67.0" text="R. PRICE" />
+            <TableColumn fx:id="inStock" prefWidth="56.0" text="QTY" />
+         </columns>
+         <opaqueInsets>
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+         </opaqueInsets>
+      </TableView>
+      <Button layoutX="711.0" layoutY="209.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="EXPORT TO EXCEL">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="711.0" layoutY="130.0" mnemonicParsing="false" onAction="#handleEditProduct" prefHeight="65.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="EDIT PRODUCT">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="711.0" layoutY="53.0" mnemonicParsing="false" onAction="#handleAddProduct" prefHeight="65.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="ADD PRODUCT">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="711.0" layoutY="388.0" mnemonicParsing="false" onAction="#handleDeleteProduct" prefHeight="65.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="DELETE PRODUCT">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="711.0" layoutY="465.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="65.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="BACK">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Label layoutX="34.0" layoutY="14.0" text="SEARCH PRODUCT KEYWORD:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

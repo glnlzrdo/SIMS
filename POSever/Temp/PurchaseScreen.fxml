@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ever.POS.best.view.PurchaseScreenController">
+   <children>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text layoutX="32.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COMPANY LOGO" wrappingWidth="227.00001299381256">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Text>
+            <Label layoutX="217.0" layoutY="23.0" text="Transaction #">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="217.0" layoutY="75.0" text="Supplier:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField editable="false" layoutX="391.0" layoutY="73.0" prefHeight="31.0" prefWidth="239.0" />
+            <Label layoutX="704.0" layoutY="137.0" prefHeight="21.0" prefWidth="126.0" text="SEARCH:" AnchorPane.rightAnchor="70.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="searchBox" layoutX="703.0" layoutY="166.0" prefHeight="31.0" prefWidth="180.0" AnchorPane.rightAnchor="17.0" />
+            <Label layoutX="704.0" layoutY="277.0" prefHeight="21.0" prefWidth="126.0" text="QUANTITY:" AnchorPane.rightAnchor="70.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Button layoutX="719.0" layoutY="364.0" mnemonicParsing="false" onAction="#addItem" prefHeight="50.0" prefWidth="150.0" text="ADD ITEM" AnchorPane.rightAnchor="31.0">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Button layoutX="719.0" layoutY="485.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="PROCESS" AnchorPane.rightAnchor="31.0">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <TextField fx:id="quantityTextbox" alignment="CENTER_RIGHT" layoutX="705.0" layoutY="310.0" prefHeight="31.0" prefWidth="180.0" text="1" AnchorPane.rightAnchor="15.0" />
+            <Button layoutX="719.0" layoutY="424.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="DELETE ITEM" AnchorPane.bottomAnchor="126.0" AnchorPane.rightAnchor="31.0">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Label fx:id="dateLabel" layoutX="751.0" layoutY="28.0" text="mm-dd-yyyy">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="348.0" layoutY="23.0" text="00-000-0000">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="productsTable" layoutX="31.0" layoutY="137.0" onSort="#deleteItem" prefHeight="400.0" prefWidth="655.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="214.0" AnchorPane.topAnchor="137.0">
+         <columns>
+            <TableColumn fx:id="productID" prefWidth="101.0" text="PRODUCT ID" />
+            <TableColumn fx:id="productName" prefWidth="126.0" text="PRODUCT NAME" />
+            <TableColumn fx:id="productDescription" minWidth="6.0" prefWidth="166.0" text="DESCRIPTION" />
+            <TableColumn fx:id="productQuantity" prefWidth="38.0" text="QTY" />
+            <TableColumn fx:id="priceForPurchase" prefWidth="135.0" text="PURCHASE PRICE" />
+            <TableColumn fx:id="subtotalAmount" prefWidth="88.0" text="SUBTOTAL" />
+         </columns>
+         <opaqueInsets>
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+         </opaqueInsets>
+      </TableView>
+      <Button layoutX="31.0" layoutY="552.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="31.0" prefWidth="94.0" text="Back" AnchorPane.bottomAnchor="17.0" />
+      <Button layoutX="134.0" layoutY="552.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="94.0" text="Logout" AnchorPane.bottomAnchor="17.0" />
+   </children>
+</AnchorPane>

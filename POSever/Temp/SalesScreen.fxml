@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ever.POS.best.view.SalesScreenController">
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0">
+         <children>
+            <TableView layoutX="158.0" layoutY="116.0" prefHeight="420.0" prefWidth="500.0">
+              <columns>
+                <TableColumn prefWidth="59.0" text="ITEM CODE" />
+                <TableColumn prefWidth="94.0" text="ITEM NAME" />
+                  <TableColumn minWidth="6.0" prefWidth="148.0" text="DESCRIPTION" />
+                  <TableColumn prefWidth="45.0" text="QTY" />
+                  <TableColumn prefWidth="77.0" text="UNIT PRICE" />
+                  <TableColumn prefWidth="75.0" text="SUBTOTAL" />
+              </columns>
+               <opaqueInsets>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </opaqueInsets>
+            </TableView>
+            <Pane layoutX="1065.0" layoutY="116.0">
+               <children>
+                  <ScrollPane prefHeight="544.0" prefWidth="312.0" />
+               </children>
+            </Pane>
+            <TableView layoutX="25.0" layoutY="116.0" prefHeight="420.0" prefWidth="120.0">
+              <columns>
+                <TableColumn prefWidth="120.0" text="TRANSACTIONS" />
+              </columns>
+            </TableView>
+            <Label layoutX="250.0" layoutY="31.0" text="Transaction #">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField editable="false" layoutX="401.0" layoutY="29.0" prefHeight="31.0" prefWidth="239.0" />
+            <Label layoutX="250.0" layoutY="72.0" text="Customer Name:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TextField editable="false" layoutX="401.0" layoutY="70.0" prefHeight="31.0" prefWidth="239.0" />
+            <Label layoutX="665.0" layoutY="34.0" text="Date: 09-09-16">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="408.0" layoutY="548.0" prefHeight="27.0" prefWidth="167.0" text="TOTAL AMOUNT:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Button layoutX="25.0" layoutY="546.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="94.0" text="Admin" />
+            <Button layoutX="129.0" layoutY="546.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="94.0" text="Logout" />
+            <Label layoutX="34.0" layoutY="17.0" prefHeight="44.0" prefWidth="148.0" text="COMPANY LOGO">
+               <font>
+                  <Font name="CityBlueprint" size="20.0" />
+               </font>
+            </Label>
+          <AnchorPane layoutX="672.0" layoutY="116.0" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="210.0">
+               <children>
+                  <Button layoutX="30.0" layoutY="140.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="ADD ITEM">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="30.0" layoutY="201.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="CHECKOUT">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="30.0" layoutY="303.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="DELETE ITEM">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="7.0" layoutY="1.0" prefHeight="21.0" prefWidth="126.0" text="SEARCH:">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox layoutX="5.0" layoutY="28.0" prefHeight="20.0" prefWidth="200.0" />
+                  <Label layoutX="7.0" layoutY="64.0" prefHeight="28.0" prefWidth="132.0" text="QUANTITY:">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField editable="false" layoutX="5.0" layoutY="93.0" prefHeight="20.0" prefWidth="200.0" />
+                  <Button layoutX="30.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="50.0" prefWidth="150.0" text="CANCEL">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <Button layoutX="233.0" layoutY="546.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="94.0" text="Inventory" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,32 @@
+.button:hover {
+	-fx-background-color: #708090;
+}
+
+.action-button, .input-field {
+ -fx-border-radius: 0px;
+ -fx-background-color: #eee;
+ -fx-border-color: transparent;
+}
+
+.input-field.editable {
+  -fx-background-color: #FFF;
+}
+
+.primary {
+  -fx-text-fill: #FFF;
+  -fx-background-color: #434343;
+}
+
+.table-header {
+  -fx-background-color: #FFF;
+  -fx-color: #434343;
+}
+
+.table-row-cell:selected {
+	-fx-background-color: #708090;
+	-fx-highlight-fill: #708090;
+}
+
+.window-pane {
+  -fx-background-color: #FFF;
+}

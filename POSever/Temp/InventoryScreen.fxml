@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="549.0" prefWidth="872.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ever.POS.best.view.InventoryScreenController">
+   <children>
+      <TableView fx:id="productsTable" layoutX="10.0" layoutY="51.0" prefHeight="465.0" prefWidth="731.0">
+         <columns>
+            <TableColumn fx:id="productID" editable="false" prefWidth="79.0" text="PRODUCT ID" />
+            <TableColumn fx:id="productName" editable="false" prefWidth="161.0" text="PRODUCT NAME" />
+            <TableColumn fx:id="productUnit" editable="false" minWidth="6.0" prefWidth="65.0" text="UNIT" />
+            <TableColumn fx:id="productDescription" editable="false" prefWidth="172.0" text="DESCRIPTION" />
+            <TableColumn fx:id="purchasePrice" editable="false" prefWidth="103.0" text="PURCHASE PRICE" />
+            <TableColumn fx:id="retailPrice" editable="false" prefWidth="87.0" text="RETAIL PRICE" />
+            <TableColumn fx:id="inStock" editable="false" minWidth="0.0" prefWidth="61.0" text="IN STOCK" />
+         </columns>
+         <opaqueInsets>
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+         </opaqueInsets>
+      </TableView>
+      <AnchorPane layoutX="995.0" layoutY="39.0" minHeight="0.0" minWidth="0.0" prefHeight="790.0" prefWidth="267.0" />
+      <Button layoutX="749.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleEditProduct" prefHeight="65.0" prefWidth="114.0" text="EDIT PRODUCT">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="749.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleAddProduct" prefHeight="65.0" prefWidth="114.0" text="ADD PRODUCT">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="749.0" layoutY="381.0" mnemonicParsing="false" onAction="#handleDeleteProduct" prefHeight="65.0" prefWidth="114.0" text="DELETE PRODUCT" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="749.0" layoutY="458.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="65.0" prefWidth="114.0" text="BACK">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Label layoutX="19.0" layoutY="16.0" text="PRODUCT NAME SEARCH:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="productSearch" layoutX="218.0" layoutY="15.0" onKeyReleased="#handleSearch" />
+   </children>
+</AnchorPane>
