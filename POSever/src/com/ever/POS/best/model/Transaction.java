@@ -85,7 +85,7 @@ public class Transaction {
 	}
 
 	///totalAmount
-	public Double gettotalAmount() {
+	public Double getTotalAmount() {
 		return totalAmount.get();
 	}
 

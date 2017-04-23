@@ -4,145 +4,94 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ever.POS.best.view.TransactionReportScreenController">
+<AnchorPane prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ever.POS.best.view.TransactionReportScreenController">
    <children>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane fx:id="purchasePane" layoutX="26.0" layoutY="80.0">
+            <AnchorPane layoutX="26.0" layoutY="80.0" prefHeight="510.0" prefWidth="970.0">
                <children>
-                  <ListView fx:id="purchaseTransactionNumberColumn" layoutY="77.0" onKeyReleased="#selectPurchaseNumber" onMouseClicked="#selectPurchaseNumber" prefHeight="381.0" prefWidth="132.0" />
-                  <Label layoutX="186.0" prefHeight="21.0" prefWidth="140.0" text="Supplier:">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="purchaseCustomerName" layoutX="322.0" prefHeight="21.0" prefWidth="157.0" text="Supplier Name">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="511.0" prefHeight="21.0" prefWidth="140.0" text="Transaction Date:">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="purchaseDateLabel" layoutX="657.0" prefHeight="21.0" prefWidth="160.0" text="Transaction Date">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="186.0" layoutY="30.0" prefHeight="21.0" prefWidth="140.0" text="Total Amount:">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="purchaseTotalAmount" layoutX="322.0" layoutY="30.0" prefHeight="21.0" prefWidth="157.0" text="P 0.0">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="511.0" layoutY="30.0" prefHeight="21.0" prefWidth="140.0" text="No. of Items:">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="purchaseNumberOfItems" layoutX="657.0" layoutY="30.0" prefHeight="21.0" prefWidth="160.0" text="0">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="purchaseProductsTable" layoutX="138.0" layoutY="77.0" prefHeight="381.0" prefWidth="729.0">
+                  <TableView id="tview" fx:id="transactionTable" layoutY="60.0" onKeyReleased="#selectNumber" onMouseClicked="#selectNumber" prefHeight="440.0" prefWidth="62.0">
                      <columns>
-                        <TableColumn fx:id="purchaseProductID" prefWidth="81.0" resizable="false" text="PRODUCT ID" />
-                        <TableColumn fx:id="purchaseProductName" prefWidth="142.0" resizable="false" text="PRODUCT NAME" />
-                        <TableColumn fx:id="purchaseProductDescription" minWidth="6.0" prefWidth="183.0" resizable="false" text="DESCRIPTION" />
-                        <TableColumn fx:id="purchaseProductPrice" prefWidth="100.0" resizable="false" text="PRICE" />
-                        <TableColumn fx:id="purchaseProductQuantity" prefWidth="64.0" resizable="false" text="QTY" />
-                        <TableColumn fx:id="purchaseProductUnit" prefWidth="71.0" resizable="false" text="UNIT" />
-                        <TableColumn fx:id="purchaseProductSubTotalAmount" prefWidth="87.0" resizable="false" text="SUBTOTAL" />
+                        <TableColumn fx:id="transactionNumberColumn" prefWidth="58.00000762939453" text="#" />
+                     </columns>
+                  </TableView>
+                  <Label layoutX="186.0" prefHeight="21.0" prefWidth="140.0" text="Name:">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="customerName" layoutX="188.0" layoutY="20.0" prefHeight="27.0" prefWidth="522.0" text="Customer Name">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="809.0" prefHeight="21.0" prefWidth="140.0" text="Transaction Date:" textAlignment="RIGHT">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="dateLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="719.0" layoutY="20.0" prefHeight="27.0" prefWidth="230.0" text="Transaction Date" textAlignment="RIGHT">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="productsTable" layoutX="75.0" layoutY="60.0" prefHeight="440.0" prefWidth="890.0">
+                     <columns>
+                        <TableColumn fx:id="productCode" prefWidth="94.33332824707031" resizable="false" text="PRODUCT ID" />
+                        <TableColumn fx:id="productName" prefWidth="177.0" resizable="false" text="PRODUCT NAME" />
+                        <TableColumn fx:id="productDescription" minWidth="6.0" prefWidth="206.0" resizable="false" text="DESCRIPTION" />
+                        <TableColumn fx:id="productPrice" prefWidth="102.66668701171875" resizable="false" text="PRICE" />
+                        <TableColumn fx:id="productQuantity" prefWidth="95.33331298828125" resizable="false" text="QTY" />
+                        <TableColumn fx:id="productUnit" prefWidth="96.0" resizable="false" text="UNIT" />
+                        <TableColumn fx:id="productSubtotalAmount" prefWidth="101.0" resizable="false" text="SUBTOTAL" />
                      </columns>
                      <opaqueInsets>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                      </opaqueInsets>
                   </TableView>
+                  <ComboBox fx:id="transactionType" layoutX="1.0" onAction="#selectTransactionType" prefHeight="32.0" prefWidth="160.0" promptText="Purchase Transactions" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="salesPane" layoutX="26.0" layoutY="80.0" visible="false">
-               <children>
-                  <ListView fx:id="transactionNumberColumn" layoutY="77.0" onKeyReleased="#selectNumber" onMouseClicked="#selectNumber" prefHeight="381.0" prefWidth="132.0" />
-                  <Label layoutX="186.0" prefHeight="21.0" prefWidth="140.0" text="Customer Name:">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="customerName" layoutX="322.0" prefHeight="21.0" prefWidth="157.0" text="Customer Name">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="511.0" prefHeight="21.0" prefWidth="140.0" text="Transaction Date:">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="dateLabel" layoutX="657.0" prefHeight="21.0" prefWidth="160.0" text="Transaction Date">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="186.0" layoutY="30.0" prefHeight="21.0" prefWidth="140.0" text="Total Amount:">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="totalAmount" layoutX="322.0" layoutY="30.0" prefHeight="21.0" prefWidth="157.0" text="P 0.0">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="511.0" layoutY="30.0" prefHeight="21.0" prefWidth="140.0" text="No. of Items:">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="numberOfItems" layoutX="657.0" layoutY="30.0" prefHeight="21.0" prefWidth="160.0" text="0">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="productsTable" layoutX="138.0" layoutY="77.0" prefHeight="381.0" prefWidth="729.0">
-                     <columns>
-                        <TableColumn fx:id="productID" prefWidth="81.0" resizable="false" text="PRODUCT ID" />
-                        <TableColumn fx:id="productName" prefWidth="142.0" resizable="false" text="PRODUCT NAME" />
-                        <TableColumn fx:id="productDescription" minWidth="6.0" prefWidth="183.0" resizable="false" text="DESCRIPTION" />
-                        <TableColumn fx:id="productPrice" prefWidth="100.0" resizable="false" text="PRICE" />
-                        <TableColumn fx:id="productQuantity" prefWidth="64.0" resizable="false" text="QTY" />
-                        <TableColumn fx:id="productUnit" prefWidth="71.0" resizable="false" text="UNIT" />
-                        <TableColumn fx:id="productSubtotalAmount" prefWidth="87.0" resizable="false" text="SUBTOTAL" />
-                     </columns>
-                     <opaqueInsets>
-                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
-                     </opaqueInsets>
-                  </TableView>
-               </children>
-            </AnchorPane>
-            <Label layoutX="22.0" layoutY="18.0" prefHeight="49.0" prefWidth="380.0" text="TRANSACTION REPORT">
+            <Label layoutX="40.0" layoutY="604.0" prefHeight="21.0" prefWidth="140.0" text="No. of Items:">
                <font>
-                  <Font name="System Bold" size="33.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Button fx:id="backButton" layoutX="775.0" layoutY="547.0" mnemonicParsing="false" onMouseClicked="#backButtonClicked" prefHeight="44.0" prefWidth="117.0" text="BACK">
+            <Label fx:id="numberOfItems" layoutX="40.0" layoutY="634.0" prefHeight="21.0" prefWidth="160.0" text="0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="22.0" layoutY="18.0" prefHeight="49.0" prefWidth="380.0" text="TRANSACTION REPORT">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="backButton" layoutX="865.0" layoutY="614.0" mnemonicParsing="false" onMouseClicked="#backButtonClicked" prefHeight="44.0" prefWidth="117.0" text="BACK">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <ComboBox fx:id="transactionType" layoutX="26.0" layoutY="78.0" onAction="#selectTransactionType" prefHeight="32.0" prefWidth="160.0" promptText="Purchase Transactions" />
+            <Label layoutX="450.0" layoutY="588.0" prefHeight="35.0" prefWidth="188.0" text="Total Amount:">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalAmount" alignment="CENTER_RIGHT" layoutX="306.0" layoutY="626.0" prefHeight="53.0" prefWidth="307.0" text="P 0.0" textAlignment="RIGHT">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <Button fx:id="backButton1" layoutX="715.0" layoutY="614.0" mnemonicParsing="false" onMouseClicked="#backButtonClicked" prefHeight="44.0" prefWidth="117.0" text="PRINT">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>

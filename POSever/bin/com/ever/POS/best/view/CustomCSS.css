@@ -22,6 +22,9 @@
   -fx-color: #434343;
 }
 
+#tview, #tcol {
+	-fx-text-alignment: right;
+}
 .table-row-cell:selected {
 	-fx-background-color: #708090;
 	-fx-highlight-fill: #708090;

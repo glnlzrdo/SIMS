@@ -1,106 +1,98 @@
 package com.ever.POS.best.view;
 
-import java.io.FileNotFoundException;
-
+import com.ever.POS.best.controller.DatabaseController;
 import com.ever.POS.best.model.Product;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class AddEditProductScreenController {
 
-	@FXML
-	private TextField productID;
-
-	@FXML
-	private TextField productName;
-
-	@FXML
-	private TextField productUnit;
-
-	@FXML
-	private TextField productDescription;
-
-	@FXML
-	private TextField purchasePrice;
-
-	@FXML
-	private TextField retailPrice;
-
-	@FXML
-	private TextField inStock;
-
 	private Stage dialogStage;
-	private ObservableList<Product> allProducts;
-	private Product product;
+	// private ObservableList<Product> allProducts;
+	// private Product product;
 	private boolean okClicked = false;
 
 	@FXML
 	private void initialize() {
+		// allProducts =
+		// FXCollections.observableArrayList(DatabaseController.openInventoryDatabase());
 		if (InventoryScreenController.addOrEdit == "ADD") {
-			productID.setEditable(true);
+			productCode.setEditable(true);
 		}
 	}
 
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
-	}
-
-	public void passProducts(ObservableList<Product> products) {
-		allProducts = products;
+		this.dialogStage.getIcons().add(new Image(this.getClass().getResource("EmployeeBuddy.png").toString()));
 	}
 
 	public void setProduct(Product product) {
-		this.product = product;
-
-		productID.setText(Integer.toString(product.getProductId()));
+		productCode.setText(Integer.toString(product.getProductCode()));
 		productName.setText(product.getProductName());
 		productUnit.setText(product.getProductUnit());
 		productDescription.setText(product.getProductDescription());
 		purchasePrice.setText(Double.toString(product.getPriceForPurchase()));
 		retailPrice.setText(Double.toString(product.getPriceForSales()));
-		inStock.setText(Integer.toString(product.getStockQuantity()));
+		inStock.setText(Double.toString(product.getStockQuantity()));
 	}
 
 	public boolean isOkClicked() {
 		return okClicked;
 	}
 
-
 	@FXML
-	private void handleSave() throws FileNotFoundException {
+	private void handleSave() {
 		if (isInputValid()) {
+			Product product = new Product(Integer.parseInt(productCode.getText()), productName.getText(),
+					productUnit.getText(), productDescription.getText(), Double.parseDouble(purchasePrice.getText()),
+					Double.parseDouble(retailPrice.getText()), Double.parseDouble(inStock.getText()));
+
 			if (InventoryScreenController.addOrEdit == "ADD") {
-				allProducts.add(
-						new Product(Integer.parseInt(productID.getText()), productName.getText(), productUnit.getText(),
-								productDescription.getText(), Double.parseDouble(purchasePrice.getText()),
-								Double.parseDouble(retailPrice.getText()), Integer.parseInt(inStock.getText())));
+				/* Check if product code doesn't exists */
+				if (DatabaseController.getProductViaCode(product.getProductCode()) == null) {
+					if (DatabaseController.createNewProduct(product))
+						dbSuccessDialog();
+					else
+						dbFailedDialog();
+				} else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.initOwner(dialogStage);
+					alert.setTitle("Product Inventory");
+					alert.setHeaderText("Product code existing!");
+					alert.showAndWait();
+				}
+
 			} else {
-				product.setProductId(Integer.parseInt(productID.getText()));
-				product.setProductName(productName.getText());
-				product.setProductUnit(productUnit.getText());
-				product.setProductDescription(productDescription.getText());
-				product.setPriceForPurchase(Double.parseDouble(purchasePrice.getText()));
-				product.setPriceForSales(Double.parseDouble(retailPrice.getText()));
-				product.setStockQuantity(Integer.parseInt(inStock.getText()));
+				if (DatabaseController.updateProductDetails(product))
+					dbSuccessDialog();
+				else
+					dbFailedDialog();
 			}
 
 			okClicked = true;
-
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.initOwner(dialogStage);
-			alert.setTitle("Product Inventory");
-			alert.setHeaderText("Inventory has been updated!");
-			//alert.setContentText("Inventory has been updated!");
-
-			alert.showAndWait();
-
 			dialogStage.close();
 		}
+	}
+
+	private void dbSuccessDialog() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.initOwner(dialogStage);
+		alert.setTitle("Product Inventory");
+		alert.setHeaderText("Inventory has been updated!");
+		alert.showAndWait();
+	}
+
+	private void dbFailedDialog() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.initOwner(dialogStage);
+		alert.setTitle("Product Inventory");
+		alert.setHeaderText("Inventory update failed!");
+		alert.showAndWait();
 	}
 
 	@FXML
@@ -111,36 +103,46 @@ public class AddEditProductScreenController {
 	private boolean isInputValid() {
 		String errorMessage = "";
 
-		if (productID.getText() == null || productID.getText().length() == 0) {
+		if (productCode.getText().trim().equals("")) {
 			errorMessage += "Invalid Product ID!\n";
 		}
-		if (productName.getText() == null || productName.getText().length() == 0) {
+		if (productName.getText().trim().equals("")) {
 			errorMessage += "Invalid Product Name!\n";
 		}
-		if (productUnit.getText() == null || productUnit.getText().length() == 0) {
+		if (productUnit.getText().trim().equals("")) {
 			errorMessage += "Invalid Product Unit!\n";
 		}
-		if (productDescription.getText() == null || productDescription.getText().length() == 0) {
+		if (productDescription.getText().trim().equals("")) {
 			errorMessage += "Invalid Product Description!\n";
 		}
-		if (purchasePrice.getText() == null || purchasePrice.getText().length() == 0) {
-			errorMessage += "Invalid Price!\n";
+		if (purchasePrice.getText().trim().equals("")) {
+			errorMessage += "Invalid Purchase Price!\n";
 		} else {
-			// try to parse the postal code into an int.
 			try {
-				Double.parseDouble(purchasePrice.getText());
+				if (Double.parseDouble(purchasePrice.getText()) <= 0)
+					throw new NumberFormatException();
 			} catch (NumberFormatException e) {
-				errorMessage += "Please enter a valid number!\n";
+				errorMessage += "Invalid Purchase Price!\n";
 			}
 		}
-		if (retailPrice.getText() == null || retailPrice.getText().length() == 0) {
-			errorMessage += "Invalid Price!\n";
+		if (retailPrice.getText().trim().equals("")) {
+			errorMessage += "Invalid Retail Price!\n";
 		} else {
-			// try to parse the postal code into an int.
 			try {
-				Double.parseDouble(retailPrice.getText());
+				if (Double.parseDouble(retailPrice.getText()) <= 0)
+					throw new NumberFormatException();
 			} catch (NumberFormatException e) {
-				errorMessage += "Please enter a valid number!\n";
+				errorMessage += "Invalid Retail Price!\n";
+			}
+		}
+		if (inStock.getText().trim().equals("")) {
+			errorMessage += "Invalid Quantity!\n";
+		} else {
+			try {
+				if (Double.parseDouble(inStock.getText()) < 0)
+					throw new NumberFormatException();
+			} catch (NumberFormatException e) {
+				errorMessage += "Invalid Quantity!\n";
 			}
 		}
 
@@ -160,4 +162,24 @@ public class AddEditProductScreenController {
 		}
 	}
 
+	@FXML
+	private TextField productCode;
+
+	@FXML
+	private TextField productName;
+
+	@FXML
+	private TextField productUnit;
+
+	@FXML
+	private TextField productDescription;
+
+	@FXML
+	private TextField purchasePrice;
+
+	@FXML
+	private TextField retailPrice;
+
+	@FXML
+	private TextField inStock;
 }

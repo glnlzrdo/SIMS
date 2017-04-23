@@ -16,94 +16,99 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@CustomCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ever.POS.best.view.SalesScreenController">
    <children>
-      <Pane fx:id="mainPane" prefHeight="607.0" prefWidth="907.0">
+      <Pane fx:id="mainPane" prefHeight="700.0" prefWidth="1024.0">
          <children>
-            <Label layoutX="177.0" layoutY="35.0" text="Transaction #">
+            <Label layoutX="177.0" layoutY="65.0" text="Transaction #">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="177.0" layoutY="76.0" text="Customer:">
+            <Label layoutX="177.0" layoutY="106.0" text="Customer:">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="694.0" layoutY="124.0" prefHeight="21.0" prefWidth="180.0" stylesheets="@../../../../../../CustomCSS.css" text="SEARCH PRODUCT:">
+            <Label layoutX="792.0" layoutY="129.0" prefHeight="21.0" prefWidth="180.0" stylesheets="@../../../../../../CustomCSS.css" text="SEARCH PRODUCT:">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="searchTextbox" layoutX="694.0" layoutY="150.0" onKeyReleased="#productSearchEvent" prefHeight="31.0" prefWidth="180.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
-            <Label layoutX="694.0" layoutY="189.0" prefHeight="21.0" prefWidth="126.0" stylesheets="@../../../../../../CustomCSS.css" text="QUANTITY:">
+            <TextField fx:id="searchTextbox" layoutX="791.0" layoutY="150.0" onKeyReleased="#productSearchEvent" prefHeight="31.0" prefWidth="198.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
+            <Button layoutX="990.0" layoutY="149.0" mnemonicParsing="false" onAction="#clearSearchBox" prefHeight="32.0" prefWidth="28.0" text="X">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Label layoutX="792.0" layoutY="189.0" prefHeight="21.0" prefWidth="126.0" stylesheets="@../../../../../../CustomCSS.css" text="QUANTITY:">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="quantityTextbox" layoutX="694.0" layoutY="210.0" prefHeight="31.0" prefWidth="180.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
-            <TextField fx:id="customerLabel" layoutX="272.0" layoutY="74.0" prefHeight="31.0" prefWidth="270.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
-            <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="709.0" layoutY="251.0" mnemonicParsing="false" onAction="#addItem" prefHeight="50.0" prefWidth="150.0" styleClass="action-button" stylesheets="@../../../../../../CustomCSS.css" text="ADD TO ITEM LIST" textAlignment="CENTER">
+            <TextField fx:id="quantityTextbox" disable="true" layoutX="791.0" layoutY="210.0" onKeyReleased="#enterQuantity" prefHeight="31.0" prefWidth="226.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
+            <TextField fx:id="customerLabel" layoutX="312.0" layoutY="104.0" prefHeight="31.0" prefWidth="472.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
+            <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="791.0" layoutY="251.0" mnemonicParsing="false" onAction="#addItem" prefHeight="50.0" prefWidth="226.0" styleClass="action-button" stylesheets="@../../../../../../CustomCSS.css" text="ADD TO ITEM LIST" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="proceedButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="709.0" layoutY="367.0" mnemonicParsing="false" onAction="#processClicked" prefHeight="50.0" prefWidth="150.0" styleClass="action-button" stylesheets="@../../../../../../CustomCSS.css" text="PROCEED TO PAYMENT" textAlignment="CENTER" wrapText="true">
+            <Button fx:id="proceedButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="791.0" layoutY="367.0" mnemonicParsing="false" onAction="#processClicked" prefHeight="50.0" prefWidth="226.0" styleClass="action-button" stylesheets="@../../../../../../CustomCSS.css" text="PROCEED TO PAYMENT" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="709.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="50.0" prefWidth="150.0" styleClass="action-button" stylesheets="@../../../../../../CustomCSS.css" text="BACK" textAlignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="791.0" layoutY="625.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="50.0" prefWidth="226.0" styleClass="action-button" stylesheets="@../../../../../../CustomCSS.css" text="BACK" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Label fx:id="dateLabel" layoutX="721.0" layoutY="35.0" text="Date: 09-09-16">
+            <Label fx:id="dateLabel" alignment="CENTER_RIGHT" layoutX="555.0" layoutY="67.0" prefHeight="27.0" prefWidth="230.0" text="Date: 09-09-16" textAlignment="RIGHT">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="150.0" layoutY="530.0" text="TOTAL AMOUNT:">
+            <Label layoutX="25.0" layoutY="630.0" text="TOTAL AMOUNT:">
                <font>
                   <Font name="System Bold" size="33.0" />
                </font>
             </Label>
-            <Button fx:id="deleteButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="709.0" layoutY="309.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="50.0" prefWidth="150.0" styleClass="action-button" stylesheets="@../../../../../../CustomCSS.css" text="DELETE ITEM" textAlignment="CENTER">
+            <Button fx:id="deleteButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="791.0" layoutY="309.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="50.0" prefWidth="226.0" styleClass="action-button" stylesheets="@../../../../../../CustomCSS.css" text="DELETE ITEM" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Label fx:id="superTotalLabel" alignment="CENTER_RIGHT" layoutX="425.0" layoutY="530.0" prefHeight="49.0" prefWidth="252.0" text="P 0.00" textAlignment="RIGHT">
+            <Label fx:id="superTotalLabel" alignment="CENTER_RIGHT" layoutX="452.0" layoutY="618.0" prefHeight="49.0" prefWidth="329.0" text="P 0.00" textAlignment="RIGHT">
                <font>
-                  <Font name="System Bold" size="33.0" />
+                  <Font name="System Bold" size="45.0" />
                </font>
             </Label>
-            <Label fx:id="transactionNumber" layoutX="311.0" layoutY="35.0" prefHeight="27.0" prefWidth="189.0" text="Transaction #">
+            <Label fx:id="transactionNumber" layoutX="311.0" layoutY="65.0" prefHeight="27.0" prefWidth="189.0" text="Transaction #">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <ListView fx:id="searchPopUp" layoutX="694.0" layoutY="177.0" onMouseClicked="#productSelect" prefHeight="221.0" prefWidth="180.0" visible="false" />
-            <ImageView fitHeight="102.0" fitWidth="104.0" layoutX="23.0" layoutY="11.0" opacity="0.57">
+            <ImageView fitHeight="102.0" fitWidth="104.0" layoutX="42.0" layoutY="41.0" opacity="0.57">
                <image>
                   <Image url="@grey%20logo.png" />
                </image>
             </ImageView>
-            <TableView fx:id="productsTable" layoutX="23.0" layoutY="126.0" prefHeight="378.0" prefWidth="657.0" stylesheets="@../../../../../../CustomCSS.css">
+            <TableView fx:id="productsTable" layoutX="23.0" layoutY="156.0" prefHeight="461.0" prefWidth="761.0" stylesheets="@../../../../../../CustomCSS.css">
                <columns>
-                  <TableColumn fx:id="productID" prefWidth="77.0" resizable="false" text="PRODUCT ID" />
-                  <TableColumn fx:id="productName" prefWidth="119.0" resizable="false" text="PRODUCT NAME" />
-                  <TableColumn fx:id="productDescription" minWidth="6.0" prefWidth="200.0" resizable="false" text="DESCRIPTION" />
-                  <TableColumn fx:id="priceForSales" prefWidth="52.0" resizable="false" text="PRICE" />
-                  <TableColumn fx:id="productQuantity" prefWidth="58.0" resizable="false" text="QTY" />
-                  <TableColumn fx:id="productUnit" prefWidth="73.0" resizable="false" text="UNIT" />
-                  <TableColumn fx:id="subtotalAmount" prefWidth="77.0" resizable="false" text="SUBTOTAL" />
+                  <TableColumn fx:id="productCode" prefWidth="97.66666412353516" resizable="false" text="PRODUCT CODE" />
+                  <TableColumn fx:id="productName" prefWidth="162.0" resizable="false" text="PRODUCT NAME" />
+                  <TableColumn fx:id="productDescription" minWidth="6.0" prefWidth="192.0" resizable="false" text="DESCRIPTION" />
+                  <TableColumn fx:id="productQuantity" prefWidth="87.0" resizable="false" text="QTY" />
+                  <TableColumn fx:id="productUnit" prefWidth="70.33331298828125" resizable="false" text="UNIT" />
+                  <TableColumn fx:id="priceForSales" prefWidth="58.6666259765625" resizable="false" text="PRICE" />
+                  <TableColumn fx:id="subtotalAmount" minWidth="0.0" prefWidth="86.6666259765625" resizable="false" text="SUBTOTAL" />
                </columns>
                <opaqueInsets>
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </opaqueInsets>
             </TableView>
+            <ListView fx:id="searchPopUp" layoutX="618.0" layoutY="177.0" onKeyReleased="#productListView_KeyPress" onMouseClicked="#productSelect" prefHeight="440.0" prefWidth="400.0" visible="false" />
          </children>
       </Pane>
-      <DialogPane fx:id="paymentDialog" headerText="CASH OUT" layoutX="255.0" layoutY="178.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="233.0" prefWidth="382.0" visible="false">
+      <DialogPane fx:id="paymentDialog" headerText="CASH OUT" layoutX="330.0" layoutY="178.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="233.0" prefWidth="382.0" visible="false">
           <header>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="233.0" prefWidth="382.0">
                <children>
@@ -144,7 +149,7 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />
           </content>
       </DialogPane>
-      <Label layoutX="315.0" layoutY="-2.0" text="Sales Transaction ">
+      <Label layoutX="374.0" layoutY="14.0" text="Sales Transaction ">
          <font>
             <Font name="System Bold" size="33.0" />
          </font>

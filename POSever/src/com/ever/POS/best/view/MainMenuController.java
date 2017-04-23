@@ -1,16 +1,15 @@
 package com.ever.POS.best.view;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import com.ever.POS.best.MainPOSApp;
 import com.ever.POS.best.controller.DatabaseController;
+import com.ever.POS.best.enums.Screen;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert.AlertType;
 
@@ -28,47 +27,41 @@ public class MainMenuController {
 	}
 
 	@FXML
-	private Label charmsClock;
-
-	@FXML
 	private void handleInventory() {
-		posApp.showInventoryScreen();
+		posApp.generateAnchorPaneScreen("view/InventoryScreen.fxml", Screen.INVENTORY);
 	}
 
 	@FXML
 	private void handlePurchase() {
-		posApp.showPurchaseScreen();
+		posApp.generateAnchorPaneScreen("view/PurchaseScreen.fxml", Screen.PURCHASE);
 	}
 
 	@FXML
 	private void handleSales() {
-		posApp.showSalesScreen();
+		posApp.generateAnchorPaneScreen("view/SalesScreen.fxml", Screen.SALES);
 	}
 
 	@FXML
 	private void handleReports() {
-		posApp.showTransactionReportScreen();
+		posApp.generateAnchorPaneScreen("view/TransactionReportScreen.fxml", Screen.REPORTS);
 	}
 
-
 	@FXML
-	private void handleExit() throws IOException {
-		DatabaseController.saveProductInventory(posApp.getAllProducts());
-		Alert alert = new Alert(AlertType.CONFIRMATION);
+	private void handleExit() {
+		Alert alert = new Alert(AlertType.CONFIRMATION, "",
+	            ButtonType.YES, ButtonType.NO);
 		alert.setGraphic(new ImageView(this.getClass().getResource("EmployeeBuddy.png").toString()));
+		alert.initOwner(posApp.getPrimaryStage());
 		alert.setTitle("Exit Program");
-		alert.setHeaderText("You are exiting the program...");
-		alert.setContentText("Are you ok with this?");
+		alert.setHeaderText("You are leaving the program...");
+		alert.setContentText("Are you sure with this?");
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
+		if (result.get() == ButtonType.YES) {
+			DatabaseController.dbClose();
 			Platform.exit();
 		}
 	}
 
-	// @FXML
-	// private void initialize() {
-	// charmsClock.setText();
-	// }
 
 }

@@ -9,44 +9,44 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="549.0" prefWidth="872.0" styleClass="window-pane" stylesheets="@CustomCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ever.POS.best.view.InventoryScreenController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1024.0" styleClass="window-pane" stylesheets="@CustomCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ever.POS.best.view.InventoryScreenController">
    <children>
       <TextField fx:id="productSearch" layoutX="264.0" layoutY="9.0" onKeyReleased="#handleSearch" prefHeight="33.0" prefWidth="300.0" styleClass="input-field" stylesheets="@CustomCSS.css" />
-      <TableView fx:id="productsTable" layoutX="34.0" layoutY="53.0" prefHeight="477.0" prefWidth="660.0" stylesheets="@CustomCSS.css">
+      <TableView fx:id="productsTable" layoutX="34.0" layoutY="53.0" prefHeight="605.0" prefWidth="802.0" stylesheets="@CustomCSS.css">
          <columns>
-            <TableColumn fx:id="productID" editable="false" prefWidth="79.0" text="PRODUCT ID" />
-            <TableColumn fx:id="productName" editable="false" prefWidth="151.0" text="PRODUCT NAME" />
-            <TableColumn fx:id="productUnit" editable="false" minWidth="6.0" prefWidth="58.0" text="UNIT" />
-            <TableColumn fx:id="productDescription" editable="false" prefWidth="179.0" text="DESCRIPTION" />
-            <TableColumn fx:id="purchasePrice" editable="false" prefWidth="68.0" text="P. PRICE" />
-            <TableColumn fx:id="retailPrice" editable="false" prefWidth="67.0" text="R. PRICE" />
-            <TableColumn fx:id="inStock" prefWidth="56.0" text="QTY" />
+            <TableColumn fx:id="productCode" editable="false" prefWidth="85.66666412353516" text="PRODUCT ID" />
+            <TableColumn fx:id="productName" editable="false" prefWidth="176.0" text="PRODUCT NAME" />
+            <TableColumn fx:id="productUnit" editable="false" minWidth="6.0" prefWidth="79.33334350585938" text="UNIT" />
+            <TableColumn fx:id="productDescription" editable="false" prefWidth="213.66668701171875" text="DESCRIPTION" />
+            <TableColumn fx:id="purchasePrice" editable="false" prefWidth="81.33331298828125" text="P. PRICE" />
+            <TableColumn fx:id="retailPrice" editable="false" prefWidth="89.0" text="R. PRICE" />
+            <TableColumn fx:id="inStock" prefWidth="74.0" text="QTY" />
          </columns>
          <opaqueInsets>
             <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
          </opaqueInsets>
       </TableView>
-      <Button layoutX="711.0" layoutY="209.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="EXPORT TO EXCEL">
+      <Button layoutX="851.0" layoutY="227.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="EXPORT TO EXCEL">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Button layoutX="711.0" layoutY="130.0" mnemonicParsing="false" onAction="#handleEditProduct" prefHeight="65.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="EDIT PRODUCT">
+      <Button layoutX="851.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleEditProduct" prefHeight="80.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="EDIT PRODUCT">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Button layoutX="711.0" layoutY="53.0" mnemonicParsing="false" onAction="#handleAddProduct" prefHeight="65.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="ADD PRODUCT">
+      <Button layoutX="851.0" layoutY="53.0" mnemonicParsing="false" onAction="#handleAddProduct" prefHeight="80.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="ADD PRODUCT">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Button layoutX="711.0" layoutY="388.0" mnemonicParsing="false" onAction="#handleDeleteProduct" prefHeight="65.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="DELETE PRODUCT">
+      <Button layoutX="851.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleDeleteProduct" prefHeight="80.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="DELETE PRODUCT">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Button layoutX="711.0" layoutY="465.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="65.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="BACK">
+      <Button layoutX="851.0" layoutY="591.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="65.0" prefWidth="150.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="BACK">
          <font>
             <Font size="13.0" />
          </font>

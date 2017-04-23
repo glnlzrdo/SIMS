@@ -18,10 +18,10 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="productID" editable="false" layoutX="189.0" layoutY="63.0" prefHeight="33.0" prefWidth="305.0" styleClass="primary" stylesheets="@../../../../../../CustomCSS.css" />
+      <TextField fx:id="productCode" editable="false" layoutX="189.0" layoutY="63.0" prefHeight="33.0" prefWidth="305.0" styleClass="primary" stylesheets="@../../../../../../CustomCSS.css" />
       <TextField fx:id="productName" layoutX="189.0" layoutY="109.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
-      <TextField fx:id="productUnit" layoutX="191.0" layoutY="155.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
-      <TextField fx:id="productDescription" layoutX="192.0" layoutY="201.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
+      <TextField fx:id="productDescription" layoutX="191.0" layoutY="155.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
+      <TextField fx:id="productUnit" layoutX="192.0" layoutY="201.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
       <TextField fx:id="purchasePrice" layoutX="192.0" layoutY="246.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
       <TextField fx:id="retailPrice" layoutX="191.0" layoutY="294.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
       <TextField fx:id="inStock" layoutX="191.0" layoutY="344.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
@@ -42,12 +42,12 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="36.0" layoutY="158.0" text="PRODUCT UNIT:">
+      <Label layoutX="36.0" layoutY="205.0" prefHeight="0.0" text="PRODUCT UNIT:">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="36.0" layoutY="205.0" text="DESCRIPTION:">
+      <Label layoutX="36.0" layoutY="158.0" text="DESCRIPTION:">
          <font>
             <Font size="17.0" />
          </font>

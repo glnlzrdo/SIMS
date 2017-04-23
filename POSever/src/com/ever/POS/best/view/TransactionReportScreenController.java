@@ -1,11 +1,15 @@
 package com.ever.POS.best.view;
 
-import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.ever.POS.best.MainPOSApp;
 import com.ever.POS.best.controller.DatabaseController;
+import com.ever.POS.best.enums.TransactionType;
 import com.ever.POS.best.model.Product;
-import com.ever.POS.best.model.Purchase;
 import com.ever.POS.best.model.Transaction;
 
 import javafx.collections.FXCollections;
@@ -14,75 +18,127 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
 
 public class TransactionReportScreenController {
 	private MainPOSApp posApp;
-	private static ObservableList<Purchase> purchaseList = FXCollections.observableArrayList();
-	private static ObservableList<Transaction> salesList = FXCollections.observableArrayList();
-	private ObservableList<Product> purchaseProducts = FXCollections.observableArrayList();
-	private ObservableList<Product> products = FXCollections.observableArrayList();
-
-	// Purchase Pane
 
 	@FXML
-	private AnchorPane purchasePane;
+	private void initialize() {
+		transactionType.setItems(FXCollections.observableArrayList("Purchase Transactions", "Sales Transactions"));
+		ObservableList<Transaction> purchaseList = FXCollections
+				.observableArrayList(DatabaseController.openTransactionDatabase(TransactionType.PURCHASE));
+		transactionTable.setItems(purchaseList);
+		updateTable(purchaseList.get(0));
+		transactionNumberColumn.setCellValueFactory(cellData -> cellData.getValue().tansactionNumberProperty());
+	}
 
 	@FXML
-	private ListView<Purchase> purchaseTransactionNumberColumn;
+	private void selectTransactionType() {
+		ObservableList<Transaction> purchaseList = FXCollections
+				.observableArrayList(DatabaseController.openTransactionDatabase(TransactionType.PURCHASE));
+
+		ObservableList<Transaction> salesList = FXCollections
+				.observableArrayList(DatabaseController.openTransactionDatabase(TransactionType.RETAIL));
+
+		if (transactionType.getValue() == "Purchase Transactions") {
+			transactionTable.setItems(purchaseList);
+			updateTable(purchaseList.get(0));
+		} else {
+			transactionTable.setItems(salesList);
+			updateTable(salesList.get(0));
+		}
+		transactionNumberColumn.setCellValueFactory(cellData -> cellData.getValue().tansactionNumberProperty());
+	}
+
+	public void updateTable(Transaction transaction) {
+		customerName.setText(transaction.getNameOfClient());
+		Date date = new Date();
+		SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
+		try {
+			date = dateParser.parse(
+					transaction.getTransactionDate().substring(0, transaction.getTransactionDate().length() - 2));
+			dateLabel.setText(sdf.format(date));
+		} catch (ParseException e1) {
+			dateLabel.setText(transaction.getTransactionDate().substring(0, transaction.getTransactionDate().length() - 2));
+		}
+		totalAmount.setText(NumberFormat.getCurrencyInstance().format(transaction.getTotalAmount()));
+		numberOfItems.setText(Integer.toString(transaction.getTotalItems()));
+		productsTable.setItems(transaction.getProductList());
+
+		productCode.setCellValueFactory(cellData -> cellData.getValue().productCodeProperty());
+		productName.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
+		productUnit.setCellValueFactory(cellData -> cellData.getValue().productUnitProperty());
+		productDescription.setCellValueFactory(cellData -> cellData.getValue().productDescriptionProperty());
+		productPrice.setCellValueFactory(cellData -> cellData.getValue().priceForSalesProperty());
+		formatCellQuantity(productPrice);
+		productQuantity.setCellValueFactory(cellData -> cellData.getValue().productSubQuantityProperty());
+		formatCellQuantity(productQuantity);
+		productSubtotalAmount.setCellValueFactory(cellData -> cellData.getValue().productSubTotalProperty());
+		formatCellCurrency(productSubtotalAmount);
+	}
+
+	//to be separated on a public helper class
+	private void formatCellQuantity(TableColumn<Product, Number> cell) {
+		cell.setCellFactory(col ->
+	    new TableCell<Product, Number>() {
+	        @Override
+	        public void updateItem(Number price, boolean empty) {
+	            super.updateItem(price, empty);
+	            if (empty) {
+	                setText(null);
+	            } else {
+	            	DecimalFormat formatter = new DecimalFormat("##,###,###.00");
+	                setText(formatter.format(price.doubleValue()));
+	            }
+	        }
+	    });
+	}
+
+	private void formatCellCurrency(TableColumn<Product, Number> cell) {
+		cell.setCellFactory(col ->
+	    new TableCell<Product, Number>() {
+	        @Override
+	        public void updateItem(Number price, boolean empty) {
+	            super.updateItem(price, empty);
+	            if (empty) {
+	                setText(null);
+	            } else {
+	                setText(NumberFormat.getCurrencyInstance().format(price.doubleValue()));
+	            }
+	        }
+	    });
+	}
+	@FXML
+	public void selectNumber() {
+		if (transactionTable.getSelectionModel().getSelectedItem() != null) {
+			updateTable(transactionTable.getSelectionModel().getSelectedItem());
+		}
+	}
 
 	@FXML
-	private TableView<Product> purchaseProductsTable;
+	private void backButtonClicked() {
+		posApp.showMainMenu();
+	}
+
+	public void setMainApp(MainPOSApp mainApp) {
+		this.posApp = mainApp;
+	}
 
 	@FXML
-	private TableColumn<Product, Number> purchaseProductID;
+	private TableView<Transaction> transactionTable;
 
 	@FXML
-	private TableColumn<Product, String> purchaseProductName;
-
-	@FXML
-	private TableColumn<Product, String> purchaseProductDescription;
-
-	@FXML
-	private TableColumn<Product, Number> purchaseProductPrice;
-
-	@FXML
-	private TableColumn<Product, Number> purchaseProductQuantity;
-
-	@FXML
-	private TableColumn<Product, String> purchaseProductUnit;
-
-	@FXML
-	private TableColumn<Product, Number> purchaseProductSubTotalAmount;
-
-	@FXML
-	private Label purchaseCustomerName;
-
-	@FXML
-	private Label purchaseDateLabel;
-
-	@FXML
-	private Label purchaseTotalAmount;
-
-	@FXML
-	private Label purchaseNumberOfItems;
-
-	// Sales Pane
-
-	@FXML
-	private AnchorPane salesPane;
-
-	@FXML
-	private ListView<Transaction> transactionNumberColumn;
+	private TableColumn<Transaction, Number> transactionNumberColumn;
 
 	@FXML
 	private TableView<Product> productsTable;
 
 	@FXML
-	private TableColumn<Product, Number> productID;
+	private TableColumn<Product, Number> productCode;
 
 	@FXML
 	private TableColumn<Product, String> productName;
@@ -119,104 +175,4 @@ public class TransactionReportScreenController {
 
 	@FXML
 	private Button backButton;
-
-	@FXML
-	private void initialize() throws FileNotFoundException {
-		transactionType.setItems(FXCollections.observableArrayList("Purchase Transactions", "Sales Transactions"));
-		purchaseList = FXCollections.observableArrayList(DatabaseController.openPurchaseDatabase());
-		purchaseProducts = purchaseList.get(0).getProductList();
-		updatePurchaseTable();
-		purchaseCustomerName.setText(purchaseList.get(0).getNameOfClient());
-		purchaseDateLabel.setText(purchaseList.get(0).getTransactionDate());
-		purchaseTotalAmount.setText(Double.toString(purchaseList.get(0).getTotalAmount()));
-		purchaseNumberOfItems.setText(Integer.toString(purchaseList.get(0).getTotalItems()));
-
-		salesList = FXCollections.observableArrayList(DatabaseController.openSalesDatabase());
-		products = salesList.get(0).getProductList();
-		updateTable();
-		customerName.setText(salesList.get(0).getNameOfClient());
-		dateLabel.setText(salesList.get(0).getTransactionDate());
-		totalAmount.setText(Double.toString(salesList.get(0).gettotalAmount()));
-		numberOfItems.setText(Integer.toString(salesList.get(0).getTotalItems()));
-	}
-
-	public void updatePurchaseTable() {
-		purchaseProductsTable.setItems(purchaseProducts);
-		purchaseTransactionNumberColumn.setItems(purchaseList);
-
-		purchaseProductID.setCellValueFactory(cellData -> cellData.getValue().productIDProperty());
-		purchaseProductName.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
-		purchaseProductUnit.setCellValueFactory(cellData -> cellData.getValue().productUnitProperty());
-		purchaseProductDescription.setCellValueFactory(cellData -> cellData.getValue().productDescriptionProperty());
-		purchaseProductPrice.setCellValueFactory(cellData -> cellData.getValue().priceForPurchaseProperty());
-		purchaseProductQuantity.setCellValueFactory(cellData -> cellData.getValue().productSubQuantityProperty());
-		purchaseProductSubTotalAmount.setCellValueFactory(cellData -> cellData.getValue().productSubTotalProperty());
-
-	}
-
-	@FXML
-	private void selectTransactionType() {
-		if (transactionType.getValue() == "Purchase Transactions") {
-			purchasePane.setVisible(true);
-			salesPane.setVisible(false);
-		} else {
-			purchasePane.setVisible(false);
-			salesPane.setVisible(true);
-		}
-	}
-
-	@FXML
-	private void selectPurchaseNumber() {
-		purchaseProducts = purchaseList.get(purchaseTransactionNumberColumn.getSelectionModel().getSelectedIndex())
-				.getProductList();
-		purchaseCustomerName.setText(purchaseList
-				.get(purchaseTransactionNumberColumn.getSelectionModel().getSelectedIndex()).getNameOfClient());
-		purchaseDateLabel.setText(purchaseList
-				.get(purchaseTransactionNumberColumn.getSelectionModel().getSelectedIndex()).getTransactionDate());
-		purchaseTotalAmount.setText(Double.toString(purchaseList
-				.get(purchaseTransactionNumberColumn.getSelectionModel().getSelectedIndex()).getTotalAmount()));
-		purchaseNumberOfItems.setText(Integer.toString(purchaseList
-				.get(purchaseTransactionNumberColumn.getSelectionModel().getSelectedIndex()).getTotalItems()));
-
-		updatePurchaseTable();
-	}
-
-	public void updateTable() {
-		productsTable.setItems(products);
-		transactionNumberColumn.setItems(salesList);
-
-		productID.setCellValueFactory(cellData -> cellData.getValue().productIDProperty());
-		productName.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
-		productUnit.setCellValueFactory(cellData -> cellData.getValue().productUnitProperty());
-		productDescription.setCellValueFactory(cellData -> cellData.getValue().productDescriptionProperty());
-		productPrice.setCellValueFactory(cellData -> cellData.getValue().priceForSalesProperty());
-		productQuantity.setCellValueFactory(cellData -> cellData.getValue().productSubQuantityProperty());
-		productSubtotalAmount.setCellValueFactory(cellData -> cellData.getValue().productSubTotalProperty());
-
-	}
-
-	@FXML
-	public void selectNumber() {
-		products = salesList.get(transactionNumberColumn.getSelectionModel().getSelectedIndex()).getProductList();
-		customerName.setText(
-				salesList.get(transactionNumberColumn.getSelectionModel().getSelectedIndex()).getNameOfClient());
-		dateLabel.setText(
-				salesList.get(transactionNumberColumn.getSelectionModel().getSelectedIndex()).getTransactionDate());
-		totalAmount.setText(Double.toString(
-				salesList.get(transactionNumberColumn.getSelectionModel().getSelectedIndex()).gettotalAmount()));
-		numberOfItems.setText(Integer.toString(
-				salesList.get(transactionNumberColumn.getSelectionModel().getSelectedIndex()).getTotalItems()));
-
-		updateTable();
-	}
-
-	@FXML
-	private void backButtonClicked() {
-		posApp.showMainMenu();
-	}
-
-	public void setMainApp(MainPOSApp mainApp) {
-		this.posApp = mainApp;
-	}
-
 }

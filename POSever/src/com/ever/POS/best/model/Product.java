@@ -1,5 +1,7 @@
 package com.ever.POS.best.model;
 
+import java.text.NumberFormat;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -9,43 +11,52 @@ import javafx.beans.property.StringProperty;
 
 public class Product {
 
-	private final IntegerProperty productId;
+	private int productId;
+	private final IntegerProperty productCode;
 	private StringProperty productName;
 	private StringProperty productUnit;
 	private StringProperty productDescription;
 	private DoubleProperty priceForPurchase;
 	private DoubleProperty priceForSales;
-	private IntegerProperty stockQuantity;
+	private DoubleProperty stockQuantity;
 	private DoubleProperty subTotal;
-	private IntegerProperty subQuantity;
+	private DoubleProperty subQuantity;
 
 	public Product() {
 		this(0, null, null, null, 0, 0, 0);
 	}
 
-	public Product(int productId, String productName, String productUnit, String productDescription,
-			double priceForPurchase, double priceForSales, int stockQuantity) {
-		this.productId = new SimpleIntegerProperty(productId);
+	public Product(int productCode, String productName, String productUnit, String productDescription,
+			double priceForPurchase, double priceForSales, double d) {
+		this.productCode = new SimpleIntegerProperty(productCode);
 		this.productName = new SimpleStringProperty(productName);
 		this.productUnit = new SimpleStringProperty(productUnit);
 		this.productDescription = new SimpleStringProperty(productDescription);
 		this.priceForPurchase = new SimpleDoubleProperty(priceForPurchase);
 		this.priceForSales = new SimpleDoubleProperty(priceForSales);
-		this.stockQuantity = new SimpleIntegerProperty(stockQuantity);
-		this.subQuantity = new SimpleIntegerProperty(0);
+		this.stockQuantity = new SimpleDoubleProperty(d);
+		this.subQuantity = new SimpleDoubleProperty(0);
 		this.subTotal = new SimpleDoubleProperty(0);
 	}
 
 	public int getProductId() {
-		return productId.get();
+		return productId;
 	}
 
 	public void setProductId(int productId) {
-		this.productId.set(productId);
+		this.productId = productId;
 	}
 
-	public IntegerProperty productIDProperty() {
-		return productId;
+	public int getProductCode() {
+		return productCode.get();
+	}
+
+	public void setProductCode(int productCode) {
+		this.productCode.set(productCode);
+	}
+
+	public IntegerProperty productCodeProperty() {
+		return productCode;
 	}
 
 	public String getProductName() {
@@ -108,21 +119,21 @@ public class Product {
 		return priceForSales;
 	}
 
-	public int getStockQuantity() {
+	public double getStockQuantity() {
 		return stockQuantity.get();
 	}
 
-	public void setStockQuantity(int stockQuantity) {
-		this.stockQuantity.set(stockQuantity);
+	public void setStockQuantity(double d) {
+		this.stockQuantity.set(d);
 	}
 
-	public IntegerProperty stockQuantityProperty() {
+	public DoubleProperty stockQuantityProperty() {
 		return stockQuantity;
 	}
 
 	//
 
-	public int getSubQuantity() {
+	public double getSubQuantity() {
 		return subQuantity.get();
 	}
 
@@ -130,7 +141,7 @@ public class Product {
 		this.subQuantity.set(subQuantity);
 	}
 
-	public IntegerProperty productSubQuantityProperty() {
+	public DoubleProperty productSubQuantityProperty() {
 		return subQuantity;
 	}
 
@@ -148,19 +159,17 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return getProductId() + " " + getProductName() + " " + getProductDescription();
+		return getProductCode() + " " + getProductName() + " " + getProductDescription();
 	}
 
+	public String toStringPurchase() {
+		return getProductCode() + " " + getProductName() + " " + getProductDescription() + "  -  " + NumberFormat.getCurrencyInstance().format(getPriceForPurchase())
+				+ " PER " + getProductUnit();
+	}
 
-
-	/*
-	 * public void setProductPriceForSales(DoubleProperty productPriceForSales)
-	 * { this.productPriceForSales = productPriceForSales; }
-	 *
-	 * public IntegerProperty getstockQuantity() { return stockQuantity; }
-	 *
-	 * public void setstockQuantity(IntegerProperty stockQuantity) {
-	 * this.stockQuantity = stockQuantity; }
-	 */
+	public String toStringSales() {
+		return getProductCode() + " " + getProductName() + " " + getProductDescription() + "  -  " + NumberFormat.getCurrencyInstance().format(getPriceForSales())
+				+ " PER " + getProductUnit();
+	}
 
 }
