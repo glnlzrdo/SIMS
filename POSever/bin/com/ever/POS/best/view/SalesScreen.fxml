@@ -76,7 +76,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Label fx:id="superTotalLabel" alignment="CENTER_RIGHT" layoutX="452.0" layoutY="618.0" prefHeight="49.0" prefWidth="329.0" text="P 0.00" textAlignment="RIGHT">
+            <Label fx:id="superTotalLabel" alignment="CENTER_RIGHT" layoutX="331.0" layoutY="618.0" prefHeight="66.0" prefWidth="450.0" text="Php0.00" textAlignment="RIGHT">
                <font>
                   <Font name="System Bold" size="45.0" />
                </font>
@@ -108,9 +108,9 @@
             <ListView fx:id="searchPopUp" layoutX="618.0" layoutY="177.0" onKeyReleased="#productListView_KeyPress" onMouseClicked="#productSelect" prefHeight="440.0" prefWidth="400.0" visible="false" />
          </children>
       </Pane>
-      <DialogPane fx:id="paymentDialog" headerText="CASH OUT" layoutX="330.0" layoutY="178.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="233.0" prefWidth="382.0" visible="false">
+      <DialogPane fx:id="paymentDialog" headerText="CASH OUT" layoutX="261.0" layoutY="178.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="522.0" visible="false">
           <header>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="233.0" prefWidth="382.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="250.0" prefWidth="400.0">
                <children>
                   <Label layoutX="14.0" layoutY="20.0" prefHeight="73.0" prefWidth="173.0" text="Enter Payment Amount:" wrapText="true">
                      <font>
@@ -122,22 +122,22 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="paymentText" alignment="CENTER_RIGHT" layoutX="206.0" layoutY="21.0" onKeyReleased="#checkPaymentAmount" prefHeight="71.0" prefWidth="169.0" promptText="0.00">
+                  <TextField fx:id="paymentText" alignment="CENTER_RIGHT" layoutX="195.0" layoutY="20.0" onKeyReleased="#checkPaymentAmount" prefHeight="71.0" prefWidth="310.0" promptText="0.00">
                      <font>
                         <Font name="System Bold" size="33.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="changeLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="205.0" layoutY="110.0" prefHeight="50.0" prefWidth="150.0" text="0.00" wrapText="true">
+                  <Label fx:id="changeLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="196.0" layoutY="110.0" prefHeight="50.0" prefWidth="290.0" text="0.00" wrapText="true">
                      <font>
                         <Font name="System Bold" size="33.0" />
                      </font>
                   </Label>
-                  <Button fx:id="paymentOKButton" disable="true" layoutX="155.0" layoutY="170.0" mnemonicParsing="false" onAction="#paymentClicked" prefHeight="50.0" prefWidth="96.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="OK">
+                  <Button fx:id="paymentOKButton" disable="true" layoutX="285.0" layoutY="180.0" mnemonicParsing="false" onAction="#paymentClicked" prefHeight="50.0" prefWidth="95.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="OK">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="274.0" layoutY="170.0" mnemonicParsing="false" onAction="#paymentCancelClicked" prefHeight="50.0" prefWidth="96.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="CANCEL">
+                  <Button layoutX="405.0" layoutY="180.0" mnemonicParsing="false" onAction="#paymentCancelClicked" prefHeight="50.0" prefWidth="95.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="CANCEL">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

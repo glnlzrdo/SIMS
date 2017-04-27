@@ -8,53 +8,58 @@
 
 <AnchorPane prefHeight="460.0" prefWidth="531.0" styleClass="window-pane" stylesheets="@../../../../../../CustomCSS.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ever.POS.best.view.AddEditProductScreenController">
    <children>
-      <Label layoutX="36.0" layoutY="110.0" text="PRODUCT NAME:">
+      <Label layoutX="36.0" layoutY="120.0" text="PRODUCT NAME:">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="19.0" layoutY="14.0" stylesheets="@../../../../../../CustomCSS.css" text="INPUT INFORMATION:">
+      <Label layoutX="19.0" layoutY="14.0" stylesheets="@../../../../../../CustomCSS.css" text="INPUT PRODUCT INFORMATION:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="productCode" editable="false" layoutX="189.0" layoutY="63.0" prefHeight="33.0" prefWidth="305.0" styleClass="primary" stylesheets="@../../../../../../CustomCSS.css" />
-      <TextField fx:id="productName" layoutX="189.0" layoutY="109.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
-      <TextField fx:id="productDescription" layoutX="191.0" layoutY="155.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
-      <TextField fx:id="productUnit" layoutX="192.0" layoutY="201.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
-      <TextField fx:id="purchasePrice" layoutX="192.0" layoutY="246.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
-      <TextField fx:id="retailPrice" layoutX="191.0" layoutY="294.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
-      <TextField fx:id="inStock" layoutX="191.0" layoutY="344.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
+      <TextField fx:id="productCode" editable="false" layoutX="189.0" layoutY="53.0" onKeyReleased="#productCodeKeypressEvent" prefHeight="33.0" prefWidth="305.0" styleClass="primary" stylesheets="@../../../../../../CustomCSS.css" />
+      <TextField fx:id="productName" layoutX="189.0" layoutY="119.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
+      <TextField fx:id="productDescription" layoutX="191.0" layoutY="165.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
+      <TextField fx:id="productUnit" layoutX="192.0" layoutY="211.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
+      <TextField fx:id="purchasePrice" layoutX="192.0" layoutY="256.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
+      <TextField fx:id="retailPrice" layoutX="191.0" layoutY="304.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
+      <TextField fx:id="inStock" layoutX="191.0" layoutY="354.0" prefHeight="33.0" prefWidth="305.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
       <Button layoutX="317.0" layoutY="405.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="35.0" prefWidth="85.0" styleClass="action-button" stylesheets="@../../../../../../CustomCSS.css" text="SAVE" />
       <Button layoutX="412.0" layoutY="405.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="35.0" prefWidth="85.0" styleClass="action-button" stylesheets="@../../../../../../CustomCSS.css" text="CANCEL" />
-      <Label layoutX="35.0" layoutY="66.0" text="PRODUCT CODE:">
+      <Label layoutX="35.0" layoutY="56.0" text="PRODUCT CODE:">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="35.0" layoutY="302.0" text="RETAIL PRICE:">
+      <Label layoutX="35.0" layoutY="312.0" text="RETAIL PRICE:">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="35.0" layoutY="255.0" text="PURCHASE PRICE:">
+      <Label layoutX="35.0" layoutY="265.0" text="PURCHASE PRICE:">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="36.0" layoutY="205.0" prefHeight="0.0" text="PRODUCT UNIT:">
+      <Label layoutX="36.0" layoutY="215.0" prefHeight="0.0" text="PRODUCT UNIT:">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="36.0" layoutY="158.0" text="DESCRIPTION:">
+      <Label layoutX="36.0" layoutY="168.0" text="DESCRIPTION:">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="37.0" layoutY="347.0" text="STOCK QTY:">
+      <Label layoutX="37.0" layoutY="357.0" text="STOCK QTY:">
          <font>
             <Font size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="productExistingWarning" layoutX="290.0" layoutY="86.0" text="This Product Code Already Exists!" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
          </font>
       </Label>
    </children>

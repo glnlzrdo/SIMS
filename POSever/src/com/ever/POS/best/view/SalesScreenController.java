@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import com.ever.POS.best.MainPOSApp;
 import com.ever.POS.best.controller.DatabaseController;
+import com.ever.POS.best.controller.Helpers;
 import com.ever.POS.best.controller.Inventory;
 import com.ever.POS.best.enums.TransactionType;
 import com.ever.POS.best.model.Product;
@@ -25,6 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -60,37 +62,28 @@ public class SalesScreenController {
 		searchTextbox.requestFocus();
 	}
 
-	// private static double validVal;
 	@FXML
 	private void checkPaymentAmount(KeyEvent event) {
-		if (event.getCode().toString() == "ESCAPE") {
+		if (event.getCode() == KeyCode.ESCAPE) {
 			paymentCancelClicked();
 		} else {
 			try {
 				if (Double.parseDouble(paymentText.getText()) >= superTotal) {
 					paymentOKButton.setDisable(false);
-					changeLabel.setText("P " + Double.toString(Double.parseDouble(paymentText.getText()) - superTotal));
+					changeLabel.setText(Inventory.formatDoubleToCurrencyString(Double.parseDouble(paymentText.getText()) - superTotal));
 				} else {
 					paymentOKButton.setDisable(true);
-					changeLabel.setText("P 0.0");
+					changeLabel.setText("Php0.00");
 				}
-				// validVal = Double.parseDouble(paymentText.getText());
 			} catch (NumberFormatException e) {
-				// paymentText.setText(String.valueOf(validVal));
-				paymentText.setText(paymentText.getText().replaceAll("[^\\d]", ""));
+				Helpers.filterTextfieldToNumbers(paymentText);
 			}
 		}
-		// positionToLast();
-	}
-
-	@FXML
-	private void positionToLast() {
-		paymentText.positionCaret(paymentText.getText().length());
 	}
 
 	@FXML
 	private void productSearchEvent(KeyEvent event) {
-		if (event.getCode().toString() == "ESCAPE") {
+		if (event.getCode() == KeyCode.ESCAPE) {
 			searchPopUp.setVisible(false);
 		} else {
 			// user keeps entering white space
@@ -99,7 +92,7 @@ public class SalesScreenController {
 				searchTextbox.setText("");
 				searchPopUp.setItems(products);
 				searchPopUp.setVisible(true);
-				if (event.getCode().toString() == "DOWN") {
+				if (event.getCode() == KeyCode.DOWN) {
 					searchPopUp.requestFocus();
 					searchPopUp.getSelectionModel().select(0);
 				}
@@ -108,7 +101,7 @@ public class SalesScreenController {
 				ObservableList<Product> productSearchResults = Inventory.searchProduct(products,
 						searchTextbox.getText());
 				// if the user press down arrow on results
-				if (event.getCode().toString() == "DOWN") {
+				if (event.getCode() == KeyCode.DOWN) {
 					searchPopUp.requestFocus();
 					searchPopUp.getSelectionModel().select(0);
 				}
@@ -129,7 +122,7 @@ public class SalesScreenController {
 
 	@FXML
 	private void enterQuantity(KeyEvent event) {
-		if (event.getCode().toString() == "ENTER") {
+		if (event.getCode() == KeyCode.ENTER) {
 			addItem();
 		} else {
 			if (quantityTextbox.getText().trim().equals("")) {
@@ -140,7 +133,7 @@ public class SalesScreenController {
 					quantityTextbox.setText("1");
 				}
 			} catch (NumberFormatException e) {
-				quantityTextbox.setText(quantityTextbox.getText().replaceAll("[^\\d]", ""));
+				Helpers.filterTextfieldToNumbers(quantityTextbox);
 			}
 		}
 	}
@@ -148,11 +141,11 @@ public class SalesScreenController {
 	/* Key release event handler for product search popup */
 	@FXML
 	private void productListView_KeyPress(KeyEvent event) {
-		if (event.getCode().toString() == "ESCAPE") {
+		if (event.getCode() == KeyCode.ESCAPE) {
 			searchPopUp.setItems(null);
 			searchPopUp.setVisible(false);
 			searchTextbox.requestFocus();
-		} else if (event.getCode().toString() == "ENTER") {
+		} else if (event.getCode() == KeyCode.ENTER) {
 			selectFromListView();
 		}
 	}
@@ -257,7 +250,7 @@ public class SalesScreenController {
 			dbFailedDialog();
 		}
 		productsForTable = FXCollections.observableArrayList();
-		superTotalLabel.setText("P 0.00");
+		superTotalLabel.setText("Php0.00");
 		refreshList();
 
 	}
@@ -291,7 +284,7 @@ public class SalesScreenController {
 		mainPane.setDisable(true);
 		paymentDialog.setVisible(true);
 		paymentText.setText(Double.toString(superTotal));
-		changeLabel.setText("P " + Double.toString(Double.parseDouble(paymentText.getText()) - superTotal));
+		changeLabel.setText(Inventory.formatDoubleToCurrencyString(Double.parseDouble(paymentText.getText()) - superTotal));
 		paymentOKButton.setDisable(false);
 	}
 
@@ -313,9 +306,9 @@ public class SalesScreenController {
 			for (int i = 0; i < productsForTable.size(); i++) {
 				superTotal += productsForTable.get(i).getSubTotal();
 			}
-			superTotalLabel.setText("P " + superTotal);
+			superTotalLabel.setText(Inventory.formatDoubleToCurrencyString(superTotal));
 		} else {
-			superTotalLabel.setText("P 0.00");
+			superTotalLabel.setText("Php0.00");
 		}
 	}
 

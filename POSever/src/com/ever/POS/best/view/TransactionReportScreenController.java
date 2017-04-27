@@ -1,6 +1,5 @@
 package com.ever.POS.best.view;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,6 +7,7 @@ import java.util.Date;
 
 import com.ever.POS.best.MainPOSApp;
 import com.ever.POS.best.controller.DatabaseController;
+import com.ever.POS.best.controller.Inventory;
 import com.ever.POS.best.enums.TransactionType;
 import com.ever.POS.best.model.Product;
 import com.ever.POS.best.model.Transaction;
@@ -17,10 +17,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 
 public class TransactionReportScreenController {
 	private MainPOSApp posApp;
@@ -63,7 +65,8 @@ public class TransactionReportScreenController {
 					transaction.getTransactionDate().substring(0, transaction.getTransactionDate().length() - 2));
 			dateLabel.setText(sdf.format(date));
 		} catch (ParseException e1) {
-			dateLabel.setText(transaction.getTransactionDate().substring(0, transaction.getTransactionDate().length() - 2));
+			dateLabel.setText(
+					transaction.getTransactionDate().substring(0, transaction.getTransactionDate().length() - 2));
 		}
 		totalAmount.setText(NumberFormat.getCurrencyInstance().format(transaction.getTotalAmount()));
 		numberOfItems.setText(Integer.toString(transaction.getTotalItems()));
@@ -73,45 +76,20 @@ public class TransactionReportScreenController {
 		productName.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
 		productUnit.setCellValueFactory(cellData -> cellData.getValue().productUnitProperty());
 		productDescription.setCellValueFactory(cellData -> cellData.getValue().productDescriptionProperty());
-		productPrice.setCellValueFactory(cellData -> cellData.getValue().priceForSalesProperty());
-		formatCellQuantity(productPrice);
+
+		if (transactionType.getValue() == "Purchase Transactions") {
+			productPrice.setCellValueFactory(cellData -> cellData.getValue().priceForPurchaseProperty());
+		} else {
+			productPrice.setCellValueFactory(cellData -> cellData.getValue().priceForSalesProperty());
+		}
+
+		Inventory.formatCellToDecimal(productPrice);
 		productQuantity.setCellValueFactory(cellData -> cellData.getValue().productSubQuantityProperty());
-		formatCellQuantity(productQuantity);
+		Inventory.formatCellToDecimal(productQuantity);
 		productSubtotalAmount.setCellValueFactory(cellData -> cellData.getValue().productSubTotalProperty());
-		formatCellCurrency(productSubtotalAmount);
+		Inventory.formatCellToCurrency(productSubtotalAmount);
 	}
 
-	//to be separated on a public helper class
-	private void formatCellQuantity(TableColumn<Product, Number> cell) {
-		cell.setCellFactory(col ->
-	    new TableCell<Product, Number>() {
-	        @Override
-	        public void updateItem(Number price, boolean empty) {
-	            super.updateItem(price, empty);
-	            if (empty) {
-	                setText(null);
-	            } else {
-	            	DecimalFormat formatter = new DecimalFormat("##,###,###.00");
-	                setText(formatter.format(price.doubleValue()));
-	            }
-	        }
-	    });
-	}
-
-	private void formatCellCurrency(TableColumn<Product, Number> cell) {
-		cell.setCellFactory(col ->
-	    new TableCell<Product, Number>() {
-	        @Override
-	        public void updateItem(Number price, boolean empty) {
-	            super.updateItem(price, empty);
-	            if (empty) {
-	                setText(null);
-	            } else {
-	                setText(NumberFormat.getCurrencyInstance().format(price.doubleValue()));
-	            }
-	        }
-	    });
-	}
 	@FXML
 	public void selectNumber() {
 		if (transactionTable.getSelectionModel().getSelectedItem() != null) {
@@ -175,4 +153,22 @@ public class TransactionReportScreenController {
 
 	@FXML
 	private Button backButton;
+
+	@FXML
+	private ToggleGroup filterGroup;
+
+	@FXML
+	private RadioButton showAllRadio;
+
+	@FXML
+	private RadioButton dateRadio;
+
+	@FXML
+	private RadioButton nameRadio;
+
+	@FXML
+	private DialogPane dateFilterDialog;
+
+	@FXML
+	private DialogPane nameFilterDialog;
 }

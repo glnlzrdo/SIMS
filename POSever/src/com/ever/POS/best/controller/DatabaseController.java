@@ -52,15 +52,14 @@ public class DatabaseController {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(GET_PRODUCTS_FROM_DB);
 			while (rs.next()) {
-				int productId = rs.getInt(2);
-				String productName = rs.getString(3);
+				int productCode = rs.getInt("product_code");
+				String productName = rs.getString("product_name");
 				String productUnit = rs.getString(4);
 				String productDescription = rs.getString(5);
 				double priceForPurchase = rs.getDouble(6);
 				double priceForSales = rs.getDouble(7);
 				int stockQuantity = rs.getInt(8);
-
-				prods.add(new Product(productId, productName, productUnit, productDescription, priceForPurchase,
+				prods.add(new Product(productCode, productName, productUnit, productDescription, priceForPurchase,
 						priceForSales, stockQuantity));
 			}
 			stmt.close();
@@ -156,11 +155,11 @@ public class DatabaseController {
 			rs = stmt.executeQuery(GET_PRODUCTS_OF_ID);
 			while (rs.next()) {
 				Product product = getProductViaId(rs.getInt(2));
-				product.setSubQuantity(rs.getInt(4));
+				product.setSubQuantity(rs.getDouble("quantity"));
 				if (transactionType == TransactionType.PURCHASE)
-					product.setSubTotal((double) rs.getInt(4) * product.getPriceForPurchase());
+					product.setSubTotal(rs.getDouble("quantity") * product.getPriceForPurchase());
 				else
-					product.setSubTotal((double) rs.getInt(4) * product.getPriceForSales());
+					product.setSubTotal(rs.getDouble("quantity") * product.getPriceForSales());
 				products.add(product);
 			}
 			stmt.close();
@@ -189,7 +188,7 @@ public class DatabaseController {
 				String productDescription = rs.getString(5);
 				double priceForPurchase = rs.getDouble(6);
 				double priceForSales = rs.getDouble(7);
-				int stockQuantity = rs.getInt(8);
+				double stockQuantity = rs.getDouble(8);
 
 				product = new Product(productId, productName, productUnit, productDescription, priceForPurchase,
 						priceForSales, stockQuantity);
@@ -222,7 +221,7 @@ public class DatabaseController {
 				String productDescription = rs.getString(5);
 				double priceForPurchase = rs.getDouble(6);
 				double priceForSales = rs.getDouble(7);
-				int stockQuantity = rs.getInt(8);
+				double stockQuantity = rs.getDouble(8);
 
 				product = new Product(productCode, productName, productUnit, productDescription, priceForPurchase,
 						priceForSales, stockQuantity);

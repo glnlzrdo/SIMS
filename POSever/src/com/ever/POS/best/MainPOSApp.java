@@ -53,7 +53,8 @@ public class MainPOSApp extends Application {
 			if (result.get() == ButtonType.YES) {
 				DatabaseController.dbClose();
 				Platform.exit();
-			}
+			} else
+				event.consume();
 		});
 		initRootLayout();
 		showMainMenu();
@@ -129,7 +130,7 @@ public class MainPOSApp extends Application {
 		return product;
 	}
 
-	public boolean showProductAddDialog() {
+	public void showProductAddDialog() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -149,15 +150,12 @@ public class MainPOSApp extends Application {
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
-
-			return controller.isOkClicked();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
 		}
 	}
 
-	public boolean showProductEditDialog(Product product) {
+	public void showProductEditDialog(Product product) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -179,11 +177,8 @@ public class MainPOSApp extends Application {
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
-
-			return controller.isOkClicked();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
 		}
 	}
 

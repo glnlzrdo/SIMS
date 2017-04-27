@@ -27,14 +27,14 @@ public class Product {
 	}
 
 	public Product(int productCode, String productName, String productUnit, String productDescription,
-			double priceForPurchase, double priceForSales, double d) {
+			double priceForPurchase, double priceForSales, double stockQuantity) {
 		this.productCode = new SimpleIntegerProperty(productCode);
 		this.productName = new SimpleStringProperty(productName);
 		this.productUnit = new SimpleStringProperty(productUnit);
 		this.productDescription = new SimpleStringProperty(productDescription);
 		this.priceForPurchase = new SimpleDoubleProperty(priceForPurchase);
 		this.priceForSales = new SimpleDoubleProperty(priceForSales);
-		this.stockQuantity = new SimpleDoubleProperty(d);
+		this.stockQuantity = new SimpleDoubleProperty(stockQuantity);
 		this.subQuantity = new SimpleDoubleProperty(0);
 		this.subTotal = new SimpleDoubleProperty(0);
 	}
@@ -123,8 +123,8 @@ public class Product {
 		return stockQuantity.get();
 	}
 
-	public void setStockQuantity(double d) {
-		this.stockQuantity.set(d);
+	public void setStockQuantity(double stockQuantity) {
+		this.stockQuantity.set(stockQuantity);
 	}
 
 	public DoubleProperty stockQuantityProperty() {
@@ -137,7 +137,7 @@ public class Product {
 		return subQuantity.get();
 	}
 
-	public void setSubQuantity(int subQuantity) {
+	public void setSubQuantity(double subQuantity) {
 		this.subQuantity.set(subQuantity);
 	}
 

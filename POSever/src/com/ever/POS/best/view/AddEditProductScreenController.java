@@ -1,28 +1,26 @@
 package com.ever.POS.best.view;
 
 import com.ever.POS.best.controller.DatabaseController;
+import com.ever.POS.best.controller.Helpers;
 import com.ever.POS.best.model.Product;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class AddEditProductScreenController {
 
 	private Stage dialogStage;
-	// private ObservableList<Product> allProducts;
-	// private Product product;
-	private boolean okClicked = false;
 
 	@FXML
 	private void initialize() {
-		// allProducts =
-		// FXCollections.observableArrayList(DatabaseController.openInventoryDatabase());
 		if (InventoryScreenController.addOrEdit == "ADD") {
 			productCode.setEditable(true);
+			productCode.setPromptText("Type a new Product Code Here...");
 		}
 	}
 
@@ -41,8 +39,17 @@ public class AddEditProductScreenController {
 		inStock.setText(Double.toString(product.getStockQuantity()));
 	}
 
-	public boolean isOkClicked() {
-		return okClicked;
+	@FXML
+	private void productCodeKeypressEvent() {
+		if (!productCode.getText().trim().equals(""))
+			try {
+				if (DatabaseController.getProductViaCode(Integer.parseInt(productCode.getText())) != null) {
+					productExistingWarning.setVisible(true);
+				} else
+					productExistingWarning.setVisible(false);
+			} catch (NumberFormatException e) {
+				Helpers.filterTextfieldToNumbers(productCode);
+			}
 	}
 
 	@FXML
@@ -73,8 +80,6 @@ public class AddEditProductScreenController {
 				else
 					dbFailedDialog();
 			}
-
-			okClicked = true;
 			dialogStage.close();
 		}
 	}
@@ -102,7 +107,6 @@ public class AddEditProductScreenController {
 
 	private boolean isInputValid() {
 		String errorMessage = "";
-
 		if (productCode.getText().trim().equals("")) {
 			errorMessage += "Invalid Product ID!\n";
 		}
@@ -182,4 +186,7 @@ public class AddEditProductScreenController {
 
 	@FXML
 	private TextField inStock;
+
+	@FXML
+	private Label productExistingWarning;
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
@@ -38,12 +39,6 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="searchTextbox" layoutX="791.0" layoutY="150.0" onKeyReleased="#productSearchEvent" prefHeight="31.0" prefWidth="198.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
-            <Button layoutX="990.0" layoutY="149.0" mnemonicParsing="false" onAction="#clearSearchBox" prefHeight="32.0" prefWidth="28.0" text="X">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
             <Label layoutX="792.0" layoutY="189.0" prefHeight="21.0" prefWidth="126.0" stylesheets="@../../../../../../CustomCSS.css" text="QUANTITY:">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -81,7 +76,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Label fx:id="superTotalLabel" alignment="CENTER_RIGHT" layoutX="452.0" layoutY="618.0" prefHeight="49.0" prefWidth="329.0" text="P 0.00" textAlignment="RIGHT">
+            <Label fx:id="superTotalLabel" alignment="CENTER_RIGHT" layoutX="331.0" layoutY="618.0" prefHeight="66.0" prefWidth="450.0" text="Php0.00" textAlignment="RIGHT">
                <font>
                   <Font name="System Bold" size="45.0" />
                </font>
@@ -110,12 +105,27 @@
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </opaqueInsets>
             </TableView>
-            <ListView fx:id="searchPopUp" layoutX="618.0" layoutY="177.0" onKeyReleased="#productListView_KeyPress" onMouseClicked="#productSelect" prefHeight="440.0" prefWidth="400.0" visible="false" />
          </children>
       </Pane>
-      <DialogPane fx:id="paymentDialog" headerText="CASH OUT" layoutX="330.0" layoutY="178.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="233.0" prefWidth="382.0" visible="false">
+      <Group layoutX="618.0" layoutY="150.0">
+         <children>
+            <TextField fx:id="searchTextbox" layoutX="171.0" onKeyReleased="#productSearchEvent" prefHeight="31.0" prefWidth="198.0" styleClass="input-field" stylesheets="@../../../../../../CustomCSS.css" />
+            <Button layoutX="372.0" mnemonicParsing="false" onAction="#clearSearchBox" prefHeight="32.0" prefWidth="28.0" text="X">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <ListView fx:id="searchPopUp" layoutY="28.0" onKeyReleased="#productListView_KeyPress" onMouseClicked="#productSelect" prefHeight="440.0" prefWidth="400.0" visible="false" />
+            <Label fx:id="noResult" layoutX="139.0" layoutY="122.0" text="No Result Found!" visible="false">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <DialogPane fx:id="paymentDialog" headerText="CASH OUT" layoutX="261.0" layoutY="178.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="522.0" visible="false">
           <header>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="233.0" prefWidth="382.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="250.0" prefWidth="400.0">
                <children>
                   <Label layoutX="14.0" layoutY="20.0" prefHeight="73.0" prefWidth="173.0" text="Enter Payment Amount:" wrapText="true">
                      <font>
@@ -127,22 +137,22 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="paymentText" alignment="CENTER_RIGHT" layoutX="206.0" layoutY="21.0" onKeyReleased="#checkPaymentAmount" prefHeight="71.0" prefWidth="169.0" promptText="0.00">
+                  <TextField fx:id="paymentText" alignment="CENTER_RIGHT" layoutX="195.0" layoutY="20.0" onKeyReleased="#checkPaymentAmount" prefHeight="71.0" prefWidth="310.0" promptText="0.00">
                      <font>
                         <Font name="System Bold" size="33.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="changeLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="205.0" layoutY="110.0" prefHeight="50.0" prefWidth="150.0" text="0.00" wrapText="true">
+                  <Label fx:id="changeLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="196.0" layoutY="110.0" prefHeight="50.0" prefWidth="290.0" text="0.00" wrapText="true">
                      <font>
                         <Font name="System Bold" size="33.0" />
                      </font>
                   </Label>
-                  <Button fx:id="paymentOKButton" disable="true" layoutX="155.0" layoutY="170.0" mnemonicParsing="false" onAction="#paymentClicked" prefHeight="50.0" prefWidth="96.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="OK">
+                  <Button fx:id="paymentOKButton" disable="true" layoutX="285.0" layoutY="180.0" mnemonicParsing="false" onAction="#paymentClicked" prefHeight="50.0" prefWidth="95.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="OK">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="274.0" layoutY="170.0" mnemonicParsing="false" onAction="#paymentCancelClicked" prefHeight="50.0" prefWidth="96.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="CANCEL">
+                  <Button layoutX="405.0" layoutY="180.0" mnemonicParsing="false" onAction="#paymentCancelClicked" prefHeight="50.0" prefWidth="95.0" styleClass="action-button" stylesheets="@CustomCSS.css" text="CANCEL">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
