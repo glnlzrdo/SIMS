@@ -12,6 +12,8 @@ import com.ever.POS.best.enums.TransactionType;
 import com.ever.POS.best.model.Product;
 import com.ever.POS.best.model.Transaction;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,9 +23,11 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 
 public class TransactionReportScreenController {
 	private MainPOSApp posApp;
@@ -34,6 +38,7 @@ public class TransactionReportScreenController {
 		ObservableList<Transaction> purchaseList = FXCollections
 				.observableArrayList(DatabaseController.openTransactionDatabase(TransactionType.PURCHASE));
 		transactionTable.setItems(purchaseList);
+		transactionType.setValue("Purchase Transactions");
 		updateTable(purchaseList.get(0));
 		transactionNumberColumn.setCellValueFactory(cellData -> cellData.getValue().tansactionNumberProperty());
 	}
@@ -45,11 +50,12 @@ public class TransactionReportScreenController {
 
 		ObservableList<Transaction> salesList = FXCollections
 				.observableArrayList(DatabaseController.openTransactionDatabase(TransactionType.RETAIL));
-
 		if (transactionType.getValue() == "Purchase Transactions") {
+			System.out.println("purchase");
 			transactionTable.setItems(purchaseList);
 			updateTable(purchaseList.get(0));
 		} else {
+			System.out.println("sales");
 			transactionTable.setItems(salesList);
 			updateTable(salesList.get(0));
 		}
@@ -87,7 +93,24 @@ public class TransactionReportScreenController {
 		Inventory.formatCellToDecimal(productPrice);
 		productQuantity.setCellValueFactory(cellData -> cellData.getValue().productSubQuantityProperty());
 		Inventory.formatCellToDecimal(productQuantity);
-		productSubtotalAmount.setCellValueFactory(cellData -> cellData.getValue().productSubTotalProperty());
+		// productSubtotalAmount.setCellValueFactory(cellData ->
+		// cellData.getValue().productSubTotalProperty());
+
+		productSubtotalAmount.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Product, Number>, ObservableValue<Number>>() {
+					@Override
+					public ObservableValue<Number> call(CellDataFeatures<Product, Number> param) {
+						if (transactionType.getValue() == "Purchase Transactions") {
+							return new SimpleDoubleProperty(
+									param.getValue().getSubQuantity() * param.getValue().getPriceForPurchase());
+						} else {
+							return new SimpleDoubleProperty(
+									param.getValue().getSubQuantity() * param.getValue().getPriceForSales());
+						}
+					}
+
+				});
+
 		Inventory.formatCellToCurrency(productSubtotalAmount);
 	}
 
