@@ -108,6 +108,7 @@ public class PurchaseScreenController {
 	private void productSearchEvent(KeyEvent event) {
 		if (event.getCode() == KeyCode.ESCAPE) {
 			searchPopUp.setVisible(false);
+			noResult.setVisible(false);
 			mainPane.setDisable(false);
 		} else {
 			// user keeps entering white space
@@ -120,7 +121,6 @@ public class PurchaseScreenController {
 					searchPopUp.requestFocus();
 					searchPopUp.getSelectionModel().select(0);
 				}
-				// addButton.setDisable(true);
 			} else {
 				ObservableList<Product> productSearchResults = Inventory.searchProduct(products,
 						searchTextbox.getText());
@@ -130,11 +130,15 @@ public class PurchaseScreenController {
 						searchPopUp.requestFocus();
 						searchPopUp.getSelectionModel().select(0);
 					}
+					mainPane.setDisable(true);
 					noResult.setVisible(false);
 					searchPopUp.setVisible(true);
 					searchPopUp.setItems(productSearchResults);
 				} else {
-					//noResult.setVisible(false);
+					if (searchPopUp.isVisible()) {
+						noResult.setVisible(true);
+					}
+					searchPopUp.setItems(null);
 				}
 			}
 		}
@@ -151,6 +155,8 @@ public class PurchaseScreenController {
 		quantityTextbox.setDisable(true);
 		addButton.setDisable(true);
 		searchPopUp.setVisible(false);
+		noResult.setVisible(false);
+		mainPane.setDisable(false);
 		searchTextbox.requestFocus();
 	}
 
@@ -178,6 +184,7 @@ public class PurchaseScreenController {
 		if (event.getCode() == KeyCode.ESCAPE) {
 			searchPopUp.setItems(null);
 			searchPopUp.setVisible(false);
+			mainPane.setDisable(false);
 			searchTextbox.requestFocus();
 		} else if (event.getCode() == KeyCode.ENTER) {
 			selectFromListView();
@@ -191,6 +198,7 @@ public class PurchaseScreenController {
 			String splitter[] = searchTextbox.getText().split(" ");
 			selectedproductCode = Integer.parseInt(splitter[0].trim());
 			addButton.setDisable(false);
+			mainPane.setDisable(false);
 			quantityTextbox.setDisable(false);
 			quantityTextbox.requestFocus();
 		} else {

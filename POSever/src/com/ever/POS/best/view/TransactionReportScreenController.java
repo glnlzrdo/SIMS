@@ -23,6 +23,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 
 public class TransactionReportScreenController {
 	private MainPOSApp posApp;
@@ -91,10 +92,16 @@ public class TransactionReportScreenController {
 	}
 
 	@FXML
-	public void selectNumber() {
+	private void selectNumber() {
 		if (transactionTable.getSelectionModel().getSelectedItem() != null) {
 			updateTable(transactionTable.getSelectionModel().getSelectedItem());
 		}
+	}
+
+	@FXML
+	private void radioDateClicked() {
+		mainPane.setDisable(true);
+		dateFilterDialog.setVisible(true);
 	}
 
 	@FXML
@@ -105,6 +112,9 @@ public class TransactionReportScreenController {
 	public void setMainApp(MainPOSApp mainApp) {
 		this.posApp = mainApp;
 	}
+
+	@FXML
+	private AnchorPane mainPane;
 
 	@FXML
 	private TableView<Transaction> transactionTable;

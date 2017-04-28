@@ -19,7 +19,7 @@
    <children>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane layoutX="26.0" layoutY="90.0" prefHeight="510.0" prefWidth="970.0">
+            <AnchorPane fx:id="mainPane" layoutX="26.0" layoutY="90.0" prefHeight="510.0" prefWidth="970.0">
                <children>
                   <TableView id="tview" fx:id="transactionTable" layoutY="60.0" onKeyReleased="#selectNumber" onMouseClicked="#selectNumber" prefHeight="440.0" prefWidth="62.0">
                      <columns>
@@ -61,40 +61,40 @@
                      </opaqueInsets>
                   </TableView>
                   <ComboBox fx:id="transactionType" layoutX="1.0" onAction="#selectTransactionType" prefHeight="32.0" prefWidth="160.0" promptText="Purchase Transactions" />
-                  <DialogPane fx:id="dateFilterDialog" layoutX="224.0" layoutY="84.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="145.0" prefWidth="480.0" visible="false">
-                      <header>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
-                           <children>
-                              <DatePicker layoutX="44.0" layoutY="51.0" />
-                              <DatePicker layoutX="261.0" layoutY="51.0" />
-                              <Label layoutX="44.0" layoutY="17.0" text="Start Date:" />
-                              <Label layoutX="261.0" layoutY="17.0" text="End Date:" />
-                              <Button defaultButton="true" layoutX="276.0" layoutY="104.0" mnemonicParsing="false" prefWidth="80.0" text="OK" />
-                              <Button cancelButton="true" layoutX="376.0" layoutY="104.0" mnemonicParsing="false" prefWidth="80.0" text="CANCEL" />
-                           </children>
-                        </AnchorPane>
-                      </header>
-                     <effect>
-                        <DropShadow color="#000000ab" height="13.0" offsetX="1.0" offsetY="1.0" radius="6.0" width="13.0" />
-                     </effect>
-                  </DialogPane>
-                  <DialogPane fx:id="nameFilterDialog" layoutX="224.0" layoutY="84.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="145.0" prefWidth="480.0" visible="false">
-                     <header>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
-                           <children>
-                              <Label layoutX="44.0" layoutY="17.0" text="Select Name:" />
-                              <Button defaultButton="true" layoutX="276.0" layoutY="104.0" mnemonicParsing="false" prefWidth="80.0" text="OK" />
-                              <Button cancelButton="true" layoutX="376.0" layoutY="104.0" mnemonicParsing="false" prefWidth="80.0" text="CANCEL" />
-                              <ComboBox layoutX="48.0" layoutY="60.0" prefWidth="410.0" />
-                           </children>
-                        </AnchorPane>
-                     </header>
-                     <effect>
-                        <DropShadow color="#000000ab" height="13.0" offsetX="1.0" offsetY="1.0" radius="6.0" width="13.0" />
-                     </effect>
-                  </DialogPane>
                </children>
             </AnchorPane>
+            <DialogPane fx:id="dateFilterDialog" layoutX="280.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="145.0" prefWidth="480.0" visible="false">
+                <header>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
+                     <children>
+                        <DatePicker layoutX="44.0" layoutY="51.0" />
+                        <DatePicker layoutX="261.0" layoutY="51.0" />
+                        <Label layoutX="44.0" layoutY="17.0" text="Start Date:" />
+                        <Label layoutX="261.0" layoutY="17.0" text="End Date:" />
+                        <Button defaultButton="true" layoutX="276.0" layoutY="104.0" mnemonicParsing="false" prefWidth="80.0" text="OK" />
+                        <Button cancelButton="true" layoutX="376.0" layoutY="104.0" mnemonicParsing="false" prefWidth="80.0" text="CANCEL" />
+                     </children>
+                  </AnchorPane>
+                </header>
+               <effect>
+                  <DropShadow color="#000000ab" height="13.0" offsetX="1.0" offsetY="1.0" radius="6.0" width="13.0" />
+               </effect>
+            </DialogPane>
+            <DialogPane fx:id="nameFilterDialog" layoutX="280.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="145.0" prefWidth="480.0" visible="false">
+               <header>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
+                     <children>
+                        <Label layoutX="44.0" layoutY="17.0" text="Select Name:" />
+                        <Button defaultButton="true" layoutX="276.0" layoutY="104.0" mnemonicParsing="false" prefWidth="80.0" text="OK" />
+                        <Button cancelButton="true" layoutX="376.0" layoutY="104.0" mnemonicParsing="false" prefWidth="80.0" text="CANCEL" />
+                        <ComboBox layoutX="48.0" layoutY="60.0" prefWidth="410.0" />
+                     </children>
+                  </AnchorPane>
+               </header>
+               <effect>
+                  <DropShadow color="#000000ab" height="13.0" offsetX="1.0" offsetY="1.0" radius="6.0" width="13.0" />
+               </effect>
+            </DialogPane>
             <Label layoutX="40.0" layoutY="614.0" prefHeight="21.0" prefWidth="140.0" text="No. of Items:">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -142,7 +142,7 @@
                         <ToggleGroup fx:id="filterGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="dateRadio" mnemonicParsing="false" text="via Date" toggleGroup="$filterGroup" />
+                  <RadioButton fx:id="dateRadio" mnemonicParsing="false" onAction="#radioDateClicked" text="via Date" toggleGroup="$filterGroup" />
                   <RadioButton fx:id="nameRadio" mnemonicParsing="false" text="via Name" toggleGroup="$filterGroup" />
                </buttons>
             </ButtonBar>
