@@ -26,12 +26,12 @@
                         <TableColumn fx:id="transactionNumberColumn" prefWidth="58.00000762939453" text="#" />
                      </columns>
                   </TableView>
-                  <Label layoutX="186.0" prefHeight="21.0" prefWidth="140.0" text="Name:">
+                  <Label layoutX="206.0" prefHeight="21.0" prefWidth="140.0" text="Name:">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="customerName" layoutX="188.0" layoutY="20.0" prefHeight="27.0" prefWidth="522.0" text="Customer Name">
+                  <Label fx:id="customerName" layoutX="208.0" layoutY="20.0" prefHeight="27.0" prefWidth="547.0" text="Customer Name">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -60,19 +60,19 @@
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                      </opaqueInsets>
                   </TableView>
-                  <ComboBox fx:id="transactionType" layoutX="1.0" onAction="#selectTransactionType" prefHeight="32.0" prefWidth="160.0" promptText="Purchase Transactions" />
+                  <ComboBox fx:id="transactionType" layoutX="1.0" onAction="#selectTransactionType" prefHeight="32.0" prefWidth="197.0" promptText="PURCHASE TRANSACTIONS" />
                </children>
             </AnchorPane>
             <DialogPane fx:id="dateFilterDialog" layoutX="280.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="145.0" prefWidth="480.0" visible="false">
                 <header>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
                      <children>
-                        <DatePicker layoutX="44.0" layoutY="51.0" />
-                        <DatePicker layoutX="261.0" layoutY="51.0" />
+                        <DatePicker fx:id="startDate" layoutX="44.0" layoutY="51.0" />
+                        <DatePicker fx:id="endDate" layoutX="261.0" layoutY="51.0" />
                         <Label layoutX="44.0" layoutY="17.0" text="Start Date:" />
                         <Label layoutX="261.0" layoutY="17.0" text="End Date:" />
-                        <Button defaultButton="true" layoutX="276.0" layoutY="104.0" mnemonicParsing="false" prefWidth="80.0" text="OK" />
-                        <Button cancelButton="true" layoutX="376.0" layoutY="104.0" mnemonicParsing="false" prefWidth="80.0" text="CANCEL" />
+                        <Button defaultButton="true" layoutX="276.0" layoutY="104.0" mnemonicParsing="false" onAction="#dateSearch" prefWidth="80.0" text="OK" />
+                        <Button cancelButton="true" layoutX="376.0" layoutY="104.0" mnemonicParsing="false" onAction="#dateCancel" prefWidth="80.0" text="CANCEL" />
                      </children>
                   </AnchorPane>
                 </header>
@@ -85,9 +85,9 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
                      <children>
                         <Label layoutX="44.0" layoutY="17.0" text="Select Name:" />
-                        <Button defaultButton="true" layoutX="276.0" layoutY="104.0" mnemonicParsing="false" prefWidth="80.0" text="OK" />
-                        <Button cancelButton="true" layoutX="376.0" layoutY="104.0" mnemonicParsing="false" prefWidth="80.0" text="CANCEL" />
-                        <ComboBox layoutX="48.0" layoutY="60.0" prefWidth="410.0" />
+                        <Button defaultButton="true" layoutX="276.0" layoutY="104.0" mnemonicParsing="false" onAction="#nameSearch" prefWidth="80.0" text="OK" />
+                        <Button cancelButton="true" layoutX="376.0" layoutY="104.0" mnemonicParsing="false" onAction="#nameCancel" prefWidth="80.0" text="CANCEL" />
+                        <ComboBox fx:id="nameCombo" layoutX="48.0" layoutY="60.0" prefWidth="410.0" />
                      </children>
                   </AnchorPane>
                </header>
@@ -137,13 +137,13 @@
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="showAllRadio" mnemonicParsing="false" selected="true" text="Show All">
+                  <RadioButton fx:id="showAllRadio" focusTraversable="false" mnemonicParsing="false" onAction="#radioShowAllClicked" onMouseClicked="#radioShowAllClicked" selected="true" text="Show All">
                      <toggleGroup>
                         <ToggleGroup fx:id="filterGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="dateRadio" mnemonicParsing="false" onAction="#radioDateClicked" text="via Date" toggleGroup="$filterGroup" />
-                  <RadioButton fx:id="nameRadio" mnemonicParsing="false" text="via Name" toggleGroup="$filterGroup" />
+                  <RadioButton fx:id="dateRadio" focusTraversable="false" mnemonicParsing="false" onAction="#radioDateClicked" onMouseClicked="#radioDateClicked" text="via Date" toggleGroup="$filterGroup" />
+                  <RadioButton fx:id="nameRadio" focusTraversable="false" mnemonicParsing="false" onAction="#radioNameClicked" onMouseClicked="#radioNameClicked" text="via Name" toggleGroup="$filterGroup" />
                </buttons>
             </ButtonBar>
          </children>

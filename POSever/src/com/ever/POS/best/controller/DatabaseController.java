@@ -108,6 +108,88 @@ public class DatabaseController {
 		return transactions;
 	}
 
+	/*
+	 * Get all purchase transactions from purchases or sales table where client
+	 * name is filtered and put into a List
+	 */
+	public static List<Transaction> getTransactionsFilteredByClientName(String clientName,
+			TransactionType transactionType) {
+		List<Transaction> transactions = new ArrayList<>();
+		dbConnect();
+		Statement stmt = null;
+		ResultSet rs = null;
+		int clientId = getClientId(clientName, transactionType);
+		final String OPEN_TRANSACTIONS_FROM_DB;
+		if (transactionType == TransactionType.PURCHASE)
+			OPEN_TRANSACTIONS_FROM_DB = "SELECT * FROM purchase WHERE purchase_client_id = " + clientId
+					+ " ORDER BY purchase_id DESC";
+		else
+			OPEN_TRANSACTIONS_FROM_DB = "SELECT * FROM sales WHERE sales_client_id = " + clientId
+					+ " ORDER BY sales_id DESC";
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(OPEN_TRANSACTIONS_FROM_DB);
+			while (rs.next()) {
+				int transactionNumber = rs.getInt(1);
+				String transactionDate = rs.getString(2);
+				String nameOfClient = getClient(rs.getInt(3), transactionType).getName();
+				double cashGiven = rs.getDouble(4);
+				ObservableList<Product> productList = getProductTransaction(rs.getInt(1), transactionType);
+
+				transactions.add(new Transaction(transactionNumber, transactionDate, nameOfClient, cashGiven, cashGiven,
+						productList.size(), productList));
+			}
+			stmt.close();
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return transactions;
+	}
+
+	/*
+	 * Get all purchase transactions from purchases or sales table where date is
+	 * filtered and put into a List
+	 */
+	public static List<Transaction> getTransactionsFilteredByDate(String startDate, String endDate,
+			TransactionType transactionType) {
+		List<Transaction> transactions = new ArrayList<>();
+		dbConnect();
+		Statement stmt = null;
+		ResultSet rs = null;
+		// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// Date start = (Date) sdf.parse(startDate);
+		// Date end = (Date) sdf.parse(endDate);
+		final String OPEN_TRANSACTIONS_FROM_DB;
+		if (transactionType == TransactionType.PURCHASE)
+			OPEN_TRANSACTIONS_FROM_DB = "SELECT * FROM purchase WHERE DATE(purchase_date) >= DATE('" + startDate
+					+ "') AND DATE(purchase_date) <= DATE('" + endDate + "') ORDER BY purchase_id DESC";
+		else
+			OPEN_TRANSACTIONS_FROM_DB = "SELECT * FROM sales WHERE DATE(sales_date) >= DATE('" + startDate
+					+ "') AND DATE(sales_date) <= DATE('" + endDate + "') ORDER BY sales_id DESC";
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(OPEN_TRANSACTIONS_FROM_DB);
+			while (rs.next()) {
+				int transactionNumber = rs.getInt(1);
+				String transactionDate = rs.getString(2);
+				String nameOfClient = getClient(rs.getInt(3), transactionType).getName();
+				double cashGiven = rs.getDouble(4);
+				ObservableList<Product> productList = getProductTransaction(rs.getInt(1), transactionType);
+
+				transactions.add(new Transaction(transactionNumber, transactionDate, nameOfClient, cashGiven, cashGiven,
+						productList.size(), productList));
+			}
+			stmt.close();
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return transactions;
+	}
+
 	/* Get Specific Client */
 	public static Client getClient(int clientId, TransactionType transactionType) {
 		Statement stmt = null;
@@ -245,7 +327,9 @@ public class DatabaseController {
 
 		// Format Transaction Date for mysql
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		// Could also use java.sql.Date
+		// java.sql.Date dat = new java.sql.Date(date.getTime());
 
 		// Get purchase ClientId if existing and insert if client is new
 		int purchaseClientId = getClientId(transaction.getNameOfClient(), transactionType);
@@ -337,9 +421,9 @@ public class DatabaseController {
 		final String INSERT_NEW_PRODUCT = "INSERT INTO product "
 				+ "(product_id, product_code, product_name, product_unit, product_description, product_purprice, product_retprice, product_quantity)"
 				+ " VALUES (0, " + product.getProductCode() + ", UPPER('" + product.getProductName().replace("'", "\\'")
-				+ "'), UPPER('" + product.getProductUnit().replace("'", "\\'") + "'), UPPER('" + product.getProductDescription().replace("'", "\\'")
-				+ "'), " + product.getPriceForPurchase() + ", '" + product.getPriceForSales() + "', '"
-				+ product.getStockQuantity() + "')";
+				+ "'), UPPER('" + product.getProductUnit().replace("'", "\\'") + "'), UPPER('"
+				+ product.getProductDescription().replace("'", "\\'") + "'), " + product.getPriceForPurchase() + ", '"
+				+ product.getPriceForSales() + "', '" + product.getStockQuantity() + "')";
 		try {
 			stmt = conn.prepareStatement(INSERT_NEW_PRODUCT);
 			stmt.execute();
@@ -472,4 +556,30 @@ public class DatabaseController {
 	}
 
 	private static final String GET_PRODUCTS_FROM_DB = "SELECT * FROM product";
+
+	public static ObservableList<Client> getAllClients(TransactionType transactionType) {
+		dbConnect();
+		Statement stmt = null;
+		ResultSet rs = null;
+		final String GET_ALL_CLIENT;
+		if (transactionType == TransactionType.PURCHASE)
+			GET_ALL_CLIENT = "SELECT * FROM purchase_client";
+		else
+			GET_ALL_CLIENT = "SELECT * FROM sales_client";
+
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(GET_ALL_CLIENT);
+			ObservableList<Client> clients = FXCollections.observableArrayList();
+			while (rs.next()) {
+				clients.add(new Client(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+			}
+			stmt.close();
+			rs.close();
+			return clients;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
