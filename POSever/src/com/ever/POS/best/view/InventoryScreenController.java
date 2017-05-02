@@ -21,13 +21,17 @@ import javafx.scene.control.ButtonType;
 
 public class InventoryScreenController {
 
-	static String addOrEdit;
+	public static InventoryUpdate addOrEdit;
 	private ObservableList<Product> allProducts;
 
 	private MainPOSApp posApp;
 
 	public InventoryScreenController() {
 
+	}
+
+	public enum InventoryUpdate {
+		ADD, EDIT;
 	}
 
 	@FXML
@@ -68,7 +72,7 @@ public class InventoryScreenController {
 
 	@FXML
 	private void handleAddProduct() {
-		addOrEdit = "ADD";
+		addOrEdit = InventoryUpdate.ADD;
 		posApp.showProductAddDialog();
 		updateProductList();
 		updateTable(allProducts);
@@ -134,7 +138,7 @@ public class InventoryScreenController {
 	private void handleEditProduct() {
 		Product selectedProduct = productsTable.getSelectionModel().getSelectedItem();
 		if (selectedProduct != null) {
-			addOrEdit = "EDIT";
+			addOrEdit = InventoryUpdate.EDIT;
 			posApp.showProductEditDialog(selectedProduct);
 			updateProductList();
 			updateTable(allProducts);

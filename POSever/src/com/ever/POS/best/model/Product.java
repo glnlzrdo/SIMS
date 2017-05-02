@@ -21,6 +21,7 @@ public class Product {
 	private DoubleProperty stockQuantity;
 	private DoubleProperty subTotal;
 	private DoubleProperty subQuantity;
+	private StringProperty productCategory;
 
 	public Product() {
 		this(0, null, null, null, 0, 0, 0);
@@ -37,6 +38,7 @@ public class Product {
 		this.stockQuantity = new SimpleDoubleProperty(stockQuantity);
 		this.subQuantity = new SimpleDoubleProperty(0);
 		this.subTotal = new SimpleDoubleProperty(0);
+		this.productCategory = new SimpleStringProperty("NONE");
 	}
 
 	public int getProductId() {
@@ -155,6 +157,30 @@ public class Product {
 
 	public DoubleProperty productSubTotalProperty() {
 		return subTotal;
+	}
+
+//	public StringProperty productDescriptionProperty() {
+//		return productDescription;
+//	}
+//
+//	public String getProductDescription() {
+//		return productDescription.get();
+//	}
+//
+//	public void setProductDescription(String productDescription) {
+//		this.productDescription.set(productDescription);
+//	}
+
+	public StringProperty productCategoryProperty() {
+		return productCategory;
+	}
+
+	public String getProductCategory() {
+		return productCategory.get();
+	}
+
+	public void setProductCategory(String productCategory) {
+		this.productCategory.set(productCategory);
 	}
 
 	@Override

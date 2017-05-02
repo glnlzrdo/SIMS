@@ -5,14 +5,13 @@ import java.util.Optional;
 
 import com.ever.POS.best.model.Product;
 import com.ever.POS.best.controller.*;
-import com.ever.POS.best.enums.Screen;
+import com.ever.POS.best.enums.ScreenMenu;
 import com.ever.POS.best.view.*;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -22,17 +21,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class MainPOSApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-
-	private ObservableList<Product> product = FXCollections.observableArrayList();
-
-	public MainPOSApp() {
-		product = FXCollections.observableArrayList(DatabaseController.openInventoryDatabase());
-	}
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -41,8 +35,7 @@ public class MainPOSApp extends Application {
 		this.primaryStage.setResizable(false);
 		this.primaryStage.getIcons().add(new Image(this.getClass().getResource("EmployeeBuddy.png").toString()));
 		this.primaryStage.setOnCloseRequest(event -> {
-			Alert alert = new Alert(AlertType.CONFIRMATION, "",
-		            ButtonType.YES, ButtonType.NO);
+			Alert alert = new Alert(AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
 			alert.setGraphic(new ImageView(this.getClass().getResource("EmployeeBuddy.png").toString()));
 			alert.setTitle("Exit Program");
 			alert.initOwner(this.getPrimaryStage());
@@ -69,16 +62,16 @@ public class MainPOSApp extends Application {
 
 			Object controller = (MainMenuController) loader.getController();
 			((MainMenuController) controller).setMainApp(this);
-			// Screen screen = Screen.getPrimary();
-			// Rectangle2D bounds = screen.getVisualBounds();
+			Screen screen = Screen.getPrimary();
+			Rectangle2D bounds = screen.getVisualBounds();
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
-			// primaryStage.setX(bounds.getMinX());
-			// primaryStage.setY(bounds.getMinY());
-			// primaryStage.setWidth(bounds.getWidth());
-			// primaryStage.setHeight(bounds.getHeight());
+			primaryStage.setX(bounds.getMinX());
+			primaryStage.setY(bounds.getMinY());
+			primaryStage.setWidth(bounds.getWidth());
+			primaryStage.setHeight(bounds.getHeight());
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -86,10 +79,10 @@ public class MainPOSApp extends Application {
 	}
 
 	public void showMainMenu() {
-		generateAnchorPaneScreen("view/MainMenu.fxml", Screen.MAIN);
+		generateAnchorPaneScreen("view/MainMenu.fxml", ScreenMenu.MAIN);
 	}
 
-	public void generateAnchorPaneScreen(String resource, Screen screen) {
+	public void generateAnchorPaneScreen(String resource, ScreenMenu screenMenu) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainPOSApp.class.getResource(resource));
@@ -97,7 +90,7 @@ public class MainPOSApp extends Application {
 
 			rootLayout.setCenter(mainScreen);
 			Object controller;
-			switch (screen) {
+			switch (screenMenu) {
 			case MAIN:
 				controller = (MainMenuController) loader.getController();
 				((MainMenuController) controller).setMainApp(this);
@@ -124,10 +117,6 @@ public class MainPOSApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public ObservableList<Product> getAllProducts() {
-		return product;
 	}
 
 	public void showProductAddDialog() {

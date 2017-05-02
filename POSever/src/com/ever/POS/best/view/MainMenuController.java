@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.ever.POS.best.MainPOSApp;
 import com.ever.POS.best.controller.DatabaseController;
-import com.ever.POS.best.enums.Screen;
+import com.ever.POS.best.enums.ScreenMenu;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -28,22 +28,22 @@ public class MainMenuController {
 
 	@FXML
 	private void handleInventory() {
-		posApp.generateAnchorPaneScreen("view/InventoryScreen.fxml", Screen.INVENTORY);
+		posApp.generateAnchorPaneScreen("view/InventoryScreen.fxml", ScreenMenu.INVENTORY);
 	}
 
 	@FXML
 	private void handlePurchase() {
-		posApp.generateAnchorPaneScreen("view/PurchaseScreen.fxml", Screen.PURCHASE);
+		posApp.generateAnchorPaneScreen("view/PurchaseScreen.fxml", ScreenMenu.PURCHASE);
 	}
 
 	@FXML
 	private void handleSales() {
-		posApp.generateAnchorPaneScreen("view/SalesScreen.fxml", Screen.SALES);
+		posApp.generateAnchorPaneScreen("view/SalesScreen.fxml", ScreenMenu.SALES);
 	}
 
 	@FXML
 	private void handleReports() {
-		posApp.generateAnchorPaneScreen("view/TransactionReportScreen.fxml", Screen.REPORTS);
+		posApp.generateAnchorPaneScreen("view/TransactionReportScreen.fxml", ScreenMenu.REPORTS);
 	}
 
 	@FXML

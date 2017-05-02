@@ -3,6 +3,7 @@ package com.ever.POS.best.view;
 import com.ever.POS.best.controller.DatabaseController;
 import com.ever.POS.best.controller.Helpers;
 import com.ever.POS.best.model.Product;
+import com.ever.POS.best.view.InventoryScreenController.InventoryUpdate;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -18,7 +19,7 @@ public class AddEditProductScreenController {
 
 	@FXML
 	private void initialize() {
-		if (InventoryScreenController.addOrEdit == "ADD") {
+		if (InventoryScreenController.addOrEdit == InventoryUpdate.ADD) {
 			productCode.setEditable(true);
 			productCode.setPromptText("Type a new Product Code Here...");
 		}
@@ -59,7 +60,7 @@ public class AddEditProductScreenController {
 					productUnit.getText(), productDescription.getText(), Double.parseDouble(purchasePrice.getText()),
 					Double.parseDouble(retailPrice.getText()), Double.parseDouble(inStock.getText()));
 
-			if (InventoryScreenController.addOrEdit == "ADD") {
+			if (InventoryScreenController.addOrEdit == InventoryUpdate.ADD) {
 				/* Check if product code doesn't exists */
 				if (DatabaseController.getProductViaCode(product.getProductCode()) == null) {
 					if (DatabaseController.createNewProduct(product))

@@ -1,5 +1,5 @@
 package com.ever.POS.best.enums;
 
-public enum Screen {
+public enum ScreenMenu {
 	MAIN, INVENTORY, PURCHASE, SALES, REPORTS
 }
